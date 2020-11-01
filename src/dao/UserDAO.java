@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 import beans.User;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,5 +56,13 @@ public class UserDAO {
 				} catch (Exception e) { }
 			}
 		}
+	}
+	
+	public Collection<User> findAll() {
+		return users.values();
+	}
+	
+	public User findOne(String id) {
+		return users.containsKey(id) ? users.get(id) : null;
 	}
 }
