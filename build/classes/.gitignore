@@ -1,9 +1,3 @@
-/dao/
 /beans/
+/dao/
 /services/
-/.metadata/
-*/build/
-*/bin/
-*/.settings/
-*/.classpath
-*/.project

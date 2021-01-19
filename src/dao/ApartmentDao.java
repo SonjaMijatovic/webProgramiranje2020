@@ -42,7 +42,7 @@ public class ApartmentDao {
 	public void removeApartmentById(int id) {
 		for(Apartment apartment : apartments) {
 			if(apartment.getId() == id) {
-//				apartment.setUklonjen(true);
+//				apartment.setRemoved(true);
 				apartment.setStatus(ActiveStatus.INACTIVE);
 				break;
 			}

@@ -52,7 +52,7 @@ public class Host extends User {
 		return selectedApartment;
 	}
 	
-	public void replaceAppartment(Apartment newApartment, int appartmentId) {
+	public void updateApartment(Apartment newApartment, int appartmentId) {
 		for(Apartment appartment : apartments) {
 			if(appartment.getId() == appartmentId) {
 				apartments.remove(appartment);
