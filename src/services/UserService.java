@@ -1,51 +1,232 @@
 package services;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import beans.Host;
+import beans.Guest;
 import beans.User;
 import dao.UserDao;
 
-@Path("")
+@Path("user")
 public class UserService {
-	
-	public static String ADMIN = "admin";
-	
 
 	@Context
 	ServletContext ctx;
-
+	
 	public UserService() {
 		super();
 	}
-
+	
 	@PostConstruct
 	public void init() {
-		if (ctx.getAttribute("userDAO") == null) {
-			String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("userDAO", new UserDao(contextPath));
+		if(ctx.getAttribute("userDao") == null)
+			ctx.setAttribute("userDao", new UserDao(ctx.getRealPath("/")));
+	}
+	
+	@POST
+	@Path("/register")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response register(User user, @Context HttpServletRequest req) {
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");
+		if(dao == null)
+			return Response.status(500).build();
+		
+		if (dao.isUsernameUnique(user.getUsername())) {
+			return Response.status(500).entity("Username already exists").build();
+		}
+		
+		Guest newGuest = new Guest(user);
+		
+		dao.addUser(newGuest);
+		dao.saveUsers();
+		
+		req.getSession().setAttribute("user", newGuest);
+		System.out.println("Logged in user: " + newGuest);
+		
+		return Response.ok().build();	
+	}
+	
+	@POST
+	@Path("/login/{username}/{password}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response login(@PathParam("username") String username, @PathParam("password") String password, @Context HttpServletRequest req) {
+		
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");
+		if(dao == null)
+			return Response.status(500).build();
+		
+		if(req.getSession().getAttribute("user") != null)
+			req.getSession().invalidate();
+		
+		if(!dao.isExistingUser(username, password)) 
+			return Response.status(500).build();
+					
+		User user = dao.getUserByUsername(username);
+		
+		req.getSession().setAttribute("user", user);
+		System.out.println("Logged in user: " + user);
+		
+		return Response.ok().build();
+	}
+	
+	@POST
+	@Path("/logout")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response logout(@Context HttpServletRequest req) {
+		
+		req.getSession().invalidate();
+		System.out.println("User is logged out!");
+		
+		return Response.ok().build();
+	}
+	
+	@GET
+	@Path("/getUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	public User getCurrentUser(@Context HttpServletRequest req) {
+
+		if(req.getSession(false) == null) {
+			System.out.println("session false");
+			return null;
+		}
+		
+		User user = (User) req.getSession(false).getAttribute("user");
+		System.out.println("Current user: " + user);
+		return user;
+	}
+	
+	@GET
+	@Path("/getAllUsers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<User> getAllUsers(){
+		
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");
+		ArrayList<User> users = null;
+		if (dao != null) {
+			users = dao.getAllUsers();
+			System.out.println("System has " + users.size() + " users.");
+		}		
+		return users;	
+	}
+	
+	@GET
+	@Path("/search/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public User searchForUser(@PathParam("username") String username){
+		
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");
+		if(dao == null)
+			return null;
+		
+		User user = dao.getUserByUsername(username);
+		if(user == null) {
+			System.out.println("User with this username doesn't exist.");
+			 return null;
+		}else {
+			System.out.println("User if found.");
+			return user;
 		}
 	}
 	
 	@GET
-	@Path("user/all")
+	@Path("/search/{username}/{role}/{gender}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUsers(@Context HttpServletRequest request) {
-		String username = AuthenticationService.getUsername(request);
-		UserDao userDao = (UserDao) ctx.getAttribute("userDAO");
-		if (userDao.findOne(username).getRole().toString().equals(ADMIN)) {
-			Collection<User> users = userDao.findAll();
-			return Response.status(Response.Status.OK).entity(users).build();
+	public ArrayList<User> findUser(@PathParam("username") String username, @PathParam("role") User.Role role, @PathParam("gender") String gender) {
+		
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");
+		if(dao == null)
+			return null;
+		
+		ArrayList<User> allUsers = dao.getAllUsers();
+		
+		ArrayList<User> usersMatchingGender = new ArrayList<User>();
+		ArrayList<User> usersMatchingRole = new ArrayList<User>();
+		ArrayList<User> foundUser = new ArrayList<User>();
+
+		for(User user : allUsers) {
+			if(user.getUsername().equals(username)) {
+				foundUser.add(user);
+			}
+			if(user.getGender() != null) {
+				if(user.getGender().equals(gender)) {
+					usersMatchingGender.add(user);
+				}
+			}
+			if(user.getRole() == role) {
+				usersMatchingRole.add(user);
+			}
 		}
-		return Response.status(Response.Status.FORBIDDEN).build();
+		
+		foundUser.retainAll(usersMatchingGender);
+		foundUser.retainAll(usersMatchingRole);
+		
+		
+		if(foundUser.isEmpty()) {
+			System.out.println("No user found with matching criteria!");
+			return null;
+		} else {
+			System.out.println("Found user matching criteria.");
+			return foundUser;
+		}
+	}
+	
+	@PUT
+	@Path("/edit/{username}/{password}/{name}/{lastname}/{gender}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public User updateUser(@PathParam("username") String username, @PathParam("password") String password,
+								@PathParam("name") String name, @PathParam("lastname") String lastname, 
+								@PathParam("gender") String gender) {
+		
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");
+		if(dao == null)
+			return null;
+		
+		User user = dao.getUserByUsername(username);
+		
+		user.setPassword(password);
+		user.setFirstname(name);
+		user.setLastname(lastname);
+		user.setGender(gender);
+		
+		dao.saveUsers();
+	
+		System.out.println("User is successfully updated");
+		return user;
+	}
+	
+	@PUT
+	@Path("/updateRole/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateUserRole(@PathParam("username") String username) {
+		
+		UserDao dao = (UserDao) ctx.getAttribute("userDao");	
+		
+		if(dao == null)
+			return Response.status(500).build();
+		
+		Host host = Host.Parse(dao.getUserByUsername(username));
+		dao.updateUser(host);
+		
+		dao.saveUsers();
+		
+		return Response.ok().build();
 	}
 }

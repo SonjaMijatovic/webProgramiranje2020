@@ -33,9 +33,9 @@ public class UserDao {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		File adminFile = new File(this.contextPath + "data" + java.io.File.separator + "admin.json");
-		File hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
-		File guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
+		adminFile = new File(this.contextPath + "data" + java.io.File.separator + "admin.json");
+		hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
+		guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
 
 		Admin admin = new Admin("admin","admin","Sonja","Brzak","zenski");
 		users.put(admin.getUsername(), admin);
