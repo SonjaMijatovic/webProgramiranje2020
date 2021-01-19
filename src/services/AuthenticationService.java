@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.User;
-import dao.UserDAO;
+import dao.UserDao;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -36,7 +36,7 @@ public class AuthenticationService {
 
 		if (ctx.getAttribute("userDAO") == null) {
 			String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("userDAO", new UserDAO(contextPath));
+			ctx.setAttribute("userDAO", new UserDao(contextPath));
 		}
 	}
 	

@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import beans.User;
-import dao.UserDAO;
+import dao.UserDao;
 
 @Path("")
 public class UserService {
@@ -32,7 +32,7 @@ public class UserService {
 	public void init() {
 		if (ctx.getAttribute("userDAO") == null) {
 			String contextPath = ctx.getRealPath("");
-			ctx.setAttribute("userDAO", new UserDAO(contextPath));
+			ctx.setAttribute("userDAO", new UserDao(contextPath));
 		}
 	}
 	
@@ -41,7 +41,7 @@ public class UserService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUsers(@Context HttpServletRequest request) {
 		String username = AuthenticationService.getUsername(request);
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		UserDao userDao = (UserDao) ctx.getAttribute("userDAO");
 		if (userDao.findOne(username).getRole().toString().equals(ADMIN)) {
 			Collection<User> users = userDao.findAll();
 			return Response.status(Response.Status.OK).entity(users).build();

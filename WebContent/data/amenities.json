@@ -1,0 +1,22 @@
+[{
+	"id": 1,
+	"item": "Soap",
+	"available": "true"
+},
+{
+	"id": 2,
+	"item": "Linens",
+	"available": "true"
+},{
+	"id": 3,
+	"item": "Air conditioning",
+	"available": "true"
+},{
+	"id": 4,
+	"item": "Parking",
+	"available": "true"
+},{
+	"id": 5,
+	"item": "Air conditioning",
+	"available": "true"
+},]

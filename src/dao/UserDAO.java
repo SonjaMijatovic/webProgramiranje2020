@@ -3,66 +3,161 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.StringTokenizer;
-
-import beans.User;
-
-import java.util.Collection;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-public class UserDAO {
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import beans.Admin;
+import beans.Host;
+import beans.Guest;
+import beans.User;
+import beans.User.Role;
+
+public class UserDao {
+
+	private HashMap<String, User> users = new HashMap<String, User>();
+	public static Admin mainAdmin;
+	private String contextPath;
+	private File adminFile;
+	private File hostsFile;
+	private File guestsFile;
 	
-	private Map<String, User> users = new HashMap<>();
-
-	public UserDAO() {
-		super();
-	}
-
-	public UserDAO(String contextPath) {
-		loadUsers(contextPath);
-	}
-	
-	private void loadUsers(String contextPath) {
-		BufferedReader in = null;
+	public UserDao(String path) {		
+		contextPath = path;
 		try {
-			File file = new File(contextPath + "/users.txt");
-			in = new BufferedReader(new FileReader(file));
-			String line;
-			StringTokenizer st;
-			while ((line = in.readLine()) != null) {
-				line = line.trim();
-				if (line.equals("") || line.indexOf('#') == 0)
-					continue;
-				st = new StringTokenizer(line, ";");
-				while (st.hasMoreTokens()) {
-					String username = st.nextToken().trim();
-					String password = st.nextToken().trim();
-					String firstname = st.nextToken().trim();
-					String lastname = st.nextToken().trim();
-					String gender = st.nextToken().trim();
-					String role = st.nextToken().trim();
-					users.put(username,
-							new User(username, password, firstname, lastname, gender, User.Role.valueOf(role)));
-				}
+			loadUsers();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		File adminFile = new File(this.contextPath + "data" + java.io.File.separator + "admin.json");
+		File hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
+		File guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
 
+		Admin admin = new Admin("admin","admin","Sonja","Brzak","zenski");
+		users.put(admin.getUsername(), admin);
+		mainAdmin = admin;		
+	}
+	
+	public void addUser(User user) {
+		users.put(user.getUsername(), user);
+		System.out.println(user.getUsername() + " added to the user list");
+	}
+	
+	public boolean isUsernameUnique(String username) {
+		return !users.containsKey(username);
+	}
+	
+	public boolean isExistingUser(String username, String password) {
+		for(User user : users.values()) {
+			if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
+				return true;
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (Exception e) { }
+		}
+		return false;
+	}
+	
+	public User getUserByUsername(String username) {
+		return users.get(username);	
+	}
+	
+	public ArrayList<User> getAllUsers(){
+		ArrayList<User> list = new ArrayList<User>();
+		for(User user : users.values()) {
+			list.add(user);
+		}
+		return list;
+	}
+	
+	public void updateUser(User user) {
+		users.put(user.getUsername(), user);
+	}
+	
+	private void loadUsers() throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+				
+		String json = ""; 
+		String temp;
+		
+		if(adminFile.exists()) {
+			try(BufferedReader br = new BufferedReader(new FileReader(adminFile))){
+				while ((temp = br.readLine()) != null) {
+					json += temp;
+				}
+			}	
+			
+			List<Admin> admins = mapper.readValue(json, new TypeReference<ArrayList<Admin>>() {});
+			
+			users.clear();
+			for(Admin admin : admins) {
+				users.put(admin.getUsername(), admin);
+				System.out.println(admin.getUsername() + " is loaded");
 			}
+		}
+		
+		json = "";
+		if(hostsFile.exists()) {
+			try(BufferedReader br = new BufferedReader(new FileReader(hostsFile))) { 
+				while ((temp = br.readLine()) != null) {
+					json += temp;
+				}
+			}
+			
+			ArrayList<Host> hosts = mapper.readValue(json, new TypeReference<ArrayList<Host>>() {});
+			
+			for(Host host : hosts) {
+				users.put(host.getUsername(), host);
+				System.out.println(host.getUsername() + " is loaded");
+			}
+				
+		}
+		
+		json = "";		
+		if(guestsFile.exists()) {
+			try(BufferedReader br = new BufferedReader(new FileReader(guestsFile))) { 
+				while ((temp = br.readLine()) != null) {
+					json += temp;
+				}
+			}
+			
+			ArrayList<Guest> guests = mapper.readValue(json, new TypeReference<ArrayList<Guest>>() {});
+			
+			for(Guest guest : guests) {
+				users.put(guest.getUsername(), guest);
+				System.out.println(guest.getUsername() + " is loaded");
+			}
+				
 		}
 	}
 	
-	public Collection<User> findAll() {
-		return users.values();
-	}
-	
-	public User findOne(String id) {
-		return users.containsKey(id) ? users.get(id) : null;
+	public void saveUsers() {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ArrayList<Guest> guests = new ArrayList<Guest>();
+		for (User user: users.values()) {
+			if (user.getRole().equals(Role.GUEST)) {
+				guests.add((Guest)user );
+			}
+		}
+		try {
+			mapper.writerWithDefaultPrettyPrinter().writeValue(guestsFile, guests);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Host> hosts = new ArrayList<Host>();		
+		for (User user: users.values()) {
+			if (user.getRole().equals(Role.HOST)) {
+				hosts.add((Host)user);
+			}
+		}
+		try {
+			mapper.writerWithDefaultPrettyPrinter().writeValue(hostsFile, hosts);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 }
