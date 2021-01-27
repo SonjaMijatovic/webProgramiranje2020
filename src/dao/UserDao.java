@@ -22,9 +22,6 @@ public class UserDao {
 	private HashMap<String, User> users = new HashMap<String, User>();
 	public static Admin mainAdmin;
 	private String contextPath;
-	private File adminFile;
-	private File hostsFile;
-	private File guestsFile;
 	
 	public UserDao(String path) {		
 		contextPath = path;
@@ -33,9 +30,6 @@ public class UserDao {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		adminFile = new File(this.contextPath + "data" + java.io.File.separator + "admin.json");
-		hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
-		guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
 
 		Admin admin = new Admin("admin","admin","Sonja","Brzak","zenski");
 		users.put(admin.getUsername(), admin);
@@ -47,11 +41,14 @@ public class UserDao {
 		System.out.println(user.getUsername() + " added to the user list");
 	}
 	
-	public boolean isUsernameUnique(String username) {
-		return !users.containsKey(username);
+	public boolean doesUsernameAlreadyExists(String username) {
+		for (User user : getAllUsers()) {
+			System.out.println(user.getUsername());
+		}
+		return users.containsKey(username);
 	}
 	
-	public boolean isExistingUser(String username, String password) {
+	public boolean doesUserAlreadyExists(String username, String password) {
 		for(User user : users.values()) {
 			if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
 				return true;
@@ -78,6 +75,10 @@ public class UserDao {
 	
 	private void loadUsers() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
+		
+		File adminFile = new File(this.contextPath + "data" + java.io.File.separator + "admins.json");
+		File hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
+		File guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
 				
 		String json = ""; 
 		String temp;
@@ -135,6 +136,8 @@ public class UserDao {
 	
 	public void saveUsers() {
 		ObjectMapper mapper = new ObjectMapper();
+		File hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
+		File guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
 		
 		ArrayList<Guest> guests = new ArrayList<Guest>();
 		for (User user: users.values()) {

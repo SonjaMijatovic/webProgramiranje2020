@@ -1,16 +1,16 @@
 [ {
-  "korisnicko_ime" : "admin",
-  "lozinka" : "admin",
-  "ime" : "Sonja",
-  "prezime" : "Brzak",
-  "pol" : "zenski",
-  "uloga" : "Administrator" 
+  "username" : "admin",
+  "password" : "admin",
+  "firstname" : "Sonja",
+  "lastname" : "Brzak",
+  "gender" : "zenski",
+  "role" : "ADMIN" 
 },
 {
-  "korisnicko_ime" : "admin2",
-  "lozinka" : "admin2",
-  "ime" : "Milica",
-  "prezime" : "Brzak",
-  "pol" : "zenski",
-  "uloga" : "Administrator" 
+  "username" : "admin2",
+  "password" : "admin2",
+  "firstname" : "Milica",
+  "lastname" : "Brzak",
+  "gender" : "zenski",
+  "role" : "ADMIN" 
 }]

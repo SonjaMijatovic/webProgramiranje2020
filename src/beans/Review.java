@@ -2,7 +2,7 @@ package beans;
 
 public class Review {
 
-	private String id;
+	private int id;
 	private String guestId;
 	private String apartmentId;
 	private String text;
@@ -13,7 +13,7 @@ public class Review {
 		super();
 	}
 
-	public Review(String id, String guestId, String apartmentId, String text, int rate, boolean visible) {
+	public Review(int id, String guestId, String apartmentId, String text, int rate, boolean visible) {
 		super();
 		this.id = id;
 		this.guestId = guestId;
@@ -23,11 +23,11 @@ public class Review {
 		this.visible = visible;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

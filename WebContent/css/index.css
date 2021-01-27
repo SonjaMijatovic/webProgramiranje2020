@@ -1,0 +1,113 @@
+body{
+	margin: 5;
+	padding: 0;
+	background-image: url("index.jpg");
+	background-size: cover;
+    background-color: rgb(4, 0, 255);
+	background-attachment: fixed;	
+}
+
+h1{
+	color: #FFFF;
+  	font-family: Arial, Helvetica, sans-serif;
+	text-shadow: 2px 1px #0000FF;
+}
+
+h3{
+	color: #FFFF;
+  	font-family: Arial, Helvetica, sans-serif;
+	text-shadow: 2px 1px #0000FF;
+}
+
+button{
+	border: 2px solid #FFFF;
+	background: white;
+	padding: 5px 5px;
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 5px;
+	cursor: pointer;
+	transition: 0.8s;
+	position: hidden;
+	color: #1E90FF;
+}
+
+button:hover {
+	border: 1px solid #fff;
+	background: #1E90FF;
+	color: #fff;
+}
+
+.btn6{
+	position: relative;
+	margin-left: 1px;
+}
+
+.labele {
+	font-size: 15px;
+  	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFF;
+}
+
+.polja {
+	border: 2px solid #3498db;
+	left: 130px;	
+	margin-top: -13px;
+	position: absolute;
+	height: 25px;
+}
+
+td{
+    background: none;
+	padding: 5px 5px;
+	font-size: 13px;
+  	font-family: Arial, Helvetica, sans-serif;
+    color: #FFFF;
+}
+
+.error{
+	position: relative;
+	margin-left: -50px;
+}
+
+.error2{
+	position: relative;
+	margin-left: -110px;
+}
+
+.combo{
+	border: 1px solid #3498db;
+	margin-left: -110px;
+	position: relative;
+	height: 25px;
+  	font-family: Arial, Helvetica, sans-serif;
+	color: #1E90FF;
+}
+
+.combo2{
+	border: 1px solid #3498db;
+	position: relative;
+	height: 25px;
+  	font-family: Arial, Helvetica, sans-serif;
+	color: #1E90FF;
+}
+
+.tabela1{
+	border: 1px solid #3498db;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+thead{
+	background-color: #3498db;
+	opacity: 0.9;
+	border-top: none;
+}
+
+.tabela1>tbody>tr:nth-child(even){
+	background-color: skyblue;
+}
+
+.tabela1>tbody>tr:nth-child(odd){
+	background-color: #56cfcf;
+}

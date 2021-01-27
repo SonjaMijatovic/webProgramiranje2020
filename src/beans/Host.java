@@ -40,11 +40,11 @@ public class Host extends User {
 		apartments.add(apartment);
 	}
 	
-	public Apartment getApartmentById(int id) {
+	public Apartment getApartmentById(String id) {
 		Apartment selectedApartment = null;
 		
 		for(Apartment apartment : apartments) {
-			if(apartment.getId() == id) {
+			if(apartment.getId().equals(id)) {
 				selectedApartment = apartment;
 				break;
 			}
@@ -52,9 +52,9 @@ public class Host extends User {
 		return selectedApartment;
 	}
 	
-	public void updateApartment(Apartment newApartment, int appartmentId) {
+	public void updateApartment(Apartment newApartment, String appartmentId) {
 		for(Apartment appartment : apartments) {
-			if(appartment.getId() == appartmentId) {
+			if(appartment.getId().equals(appartmentId)) {
 				apartments.remove(appartment);
 				apartments.add(newApartment);
 				break;

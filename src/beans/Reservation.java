@@ -1,13 +1,15 @@
 package beans;
 
+import java.util.UUID;
+
 public class Reservation {
 
 	public enum Status {
 		CREATED, REJECTED, CANCELED, ACCEPTED, COMPLETED;
 	}
 
-	private int id;
-	private int apartmentId;
+	private String id = UUID.randomUUID().toString();
+	private String apartmentId;
 	private int nights = 1;
 	private int price;
 	private String message;
@@ -20,7 +22,7 @@ public class Reservation {
 		super();
 	}
 
-	public Reservation(int id, int apartmentId, int nights, int price, String message, int guestId, Status status,
+	public Reservation(String id, String apartmentId, int nights, int price, String message, int guestId, Status status,
 			String confirmation) {
 		super();
 		this.id = id;
@@ -33,19 +35,19 @@ public class Reservation {
 		this.confirmation = confirmation;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getApartmentId() {
+	public String getApartmentId() {
 		return apartmentId;
 	}
 
-	public void setApartmentId(int apartmentId) {
+	public void setApartmentId(String apartmentId) {
 		this.apartmentId = apartmentId;
 	}
 

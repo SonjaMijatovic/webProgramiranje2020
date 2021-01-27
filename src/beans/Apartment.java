@@ -1,7 +1,9 @@
 package beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 
 
 public class Apartment {
@@ -14,11 +16,13 @@ public class Apartment {
 		ACTIVE, INACTIVE
 	}
 
-	private int id;
+	private String id = UUID.randomUUID().toString();
 	private Type type;
 	private int numberOfRooms;
 	private int numberOfGuests;
 	private Location location;
+//	private ArrayList<Date> datumiZaIzdavanje;
+//	private ArrayList<Date> dostupnostPoDatumima;
 	private User host;
 	private String checkinTime;
 	private String checkoutTime;
@@ -28,7 +32,7 @@ public class Apartment {
 	private ArrayList<Amenity> amenities;
 
 	private Collection<Review> reviews;
-	private Collection<Reservation> reservations;
+	private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 
 	private boolean deleted;
 
@@ -36,9 +40,10 @@ public class Apartment {
 		super();
 	}
 
-	public Apartment(int id, Type type, int numberOfRooms, int numberOfGuests, Location location, User host,
+	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, User host,
 			String checkinTime, String checkoutTime, int price, ActiveStatus status, ArrayList<String> images,
-			ArrayList<Amenity> amenities, Collection<Review> reviews, Collection<Reservation> reservations) {
+			ArrayList<Amenity> amenities, Collection<Review> reviews, ArrayList<Reservation> reservations,
+			boolean deleted) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -54,13 +59,15 @@ public class Apartment {
 		this.amenities = amenities;
 		this.reviews = reviews;
 		this.reservations = reservations;
+		this.deleted = deleted;
 	}
 
-	public int getId() {
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -160,11 +167,11 @@ public class Apartment {
 		this.reviews = reviews;
 	}
 
-	public Collection<Reservation> getReservations() {
+	public ArrayList<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(Collection<Reservation> reservations) {
+	public void setReservations(ArrayList<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 
@@ -175,4 +182,37 @@ public class Apartment {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+	
+	public void addReservation(Reservation reservation) {
+		reservations.add(reservation);
+	}
+	
+	public void setCancelation(String id) {
+		for(Reservation reservation : reservations) {
+			if(reservation.getId().equals(id)) {
+				reservation.setStatus(Reservation.Status.CANCELED);
+			}
+		}
+	}
+	
+	public void setCompleted(String id) {
+		for(Reservation reservation : reservations) {
+			if(reservation.getId().equals(id)) {
+				reservation.setStatus(Reservation.Status.COMPLETED);
+			}
+		}
+	}
+	
+	public void setAccepted(String id) {
+		for(Reservation reservation : reservations) {
+			if(reservation.getId().equals(id)) {
+				reservation.setStatus(Reservation.Status.ACCEPTED);
+			}
+		}
+	}
+	
+	public void addReview(Review review) {
+		reviews.add(review);
+	}
+
 }

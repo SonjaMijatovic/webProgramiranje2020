@@ -39,9 +39,9 @@ public class ApartmentDao {
 		return apartments;
 	}
 	
-	public void removeApartmentById(int id) {
+	public void removeApartmentById(String id) {
 		for(Apartment apartment : apartments) {
-			if(apartment.getId() == id) {
+			if(apartment.getId().equals(id)) {
 //				apartment.setRemoved(true);
 				apartment.setStatus(ActiveStatus.INACTIVE);
 				break;
@@ -49,20 +49,20 @@ public class ApartmentDao {
 		}
 	}
 	
-	public Apartment getActiveApartmentById(int id) {
+	public Apartment getActiveApartmentById(String id) {
 		ArrayList<Apartment> activeApartments = getActiveApartments();
 		
 		for(Apartment apartment : activeApartments) {
-			if(apartment.getId() == id) {
+			if(apartment.getId().equals(id)) {
 				return apartment;
 			}
 		}
 		return null;
 	}
 	
-	public Apartment getApartmentById(int id) {
+	public Apartment getApartmentById(String id) {
 		for(Apartment apartment : apartments) {
-			if(apartment.getId() == id) {
+			if(apartment.getId().equals(id)) {
 				return apartment;
 			}
 		}

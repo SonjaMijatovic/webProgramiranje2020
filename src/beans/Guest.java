@@ -47,9 +47,9 @@ public class Guest extends User {
 		System.out.println("Reservation added to the guest's list");
 	}
 	
-	public void cancelUserReservation(int id) {
+	public void cancelUserReservation(String id) {
 		for(Reservation reservation : reservations) {
-			if(reservation.getId() == id) {
+			if(reservation.getId().equals(id)) {
 				reservation.setStatus(Status.CANCELED);
 			}
 		}

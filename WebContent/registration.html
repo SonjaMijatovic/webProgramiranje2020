@@ -1,0 +1,64 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Registration</title>
+	<script src="javascript/jquery-3.3.1.min.js"></script>
+	<script src="javascript/registration.js"></script>
+	<link rel="stylesheet" href="css/registration.css">
+	
+</head>
+<body>
+
+<h2> Registration</h2>
+
+<form id="registracija_korisnika">
+<table>
+	<tr>
+		<td><label class="labele">Username </label></td>
+		<td><input type="text" name="korisnickoIme" id="korIme" class="polja"></td>
+		<td><span id="greskaKorImePor" class="error"></span></td>
+	</tr>
+	
+	<tr>
+		<td><label class="labele"> Password </label></td>
+		<td><input type="password" name="lozinka" id="loz" class="polja"></td>
+		<td><span id="greskaLozPor" class="error"></span></td>
+	</tr>
+	<tr>
+		<td><label class="labele"> Repeat password </label></td>
+		<td><input type="password" name="ponoviLozinku" id="ponLoz" class="polja"></td>
+		<td><span id="greskaPonLozPor" class="error"></span></td>
+	</tr>
+	
+	<tr>
+		<td><label class="labele"> Firstname </label></td>
+		<td><input type="text" name="imeKorisnika" id="imeKorisnika" class="polja"></td>
+		<td><span id="greskaImePor" class="error"></span></td>
+	</tr>
+	<tr>	
+		<td><label class="labele"> Lastname </label></td>
+		<td><input type="text" name="przKorisnika" id="przKorisnika" class="polja"></td>		
+		<td><span id="greskaPrzPor" class="error"></span></td>
+	</tr>
+	
+	<tr>
+		<td><label class="labele"> Gender </label></td>
+		<td><select name="pol" id="pol" class="combo">
+				  <option value="muski">muski</option>
+				  <option value="zenski">zenski</option>				 
+		</select></td>
+	</tr>
+	
+	<tr>
+		<div class = "register">
+			<td><button class="btn1" type="submit" id="registruj"> Confirm </button></td>
+			<td><button class="btn2" type="submit" id="odustani"> Cancel </button></td>
+		</div>
+	</tr>
+</table>
+</form>
+
+
+
+</body>
+</html>

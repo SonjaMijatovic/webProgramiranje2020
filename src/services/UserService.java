@@ -46,7 +46,7 @@ public class UserService {
 		if(dao == null)
 			return Response.status(500).build();
 		
-		if (dao.isUsernameUnique(user.getUsername())) {
+		if (dao.doesUsernameAlreadyExists(user.getUsername())) {
 			return Response.status(500).entity("Username already exists").build();
 		}
 		
@@ -73,7 +73,7 @@ public class UserService {
 		if(req.getSession().getAttribute("user") != null)
 			req.getSession().invalidate();
 		
-		if(!dao.isExistingUser(username, password)) 
+		if(!dao.doesUserAlreadyExists(username, password)) 
 			return Response.status(500).build();
 					
 		User user = dao.getUserByUsername(username);
