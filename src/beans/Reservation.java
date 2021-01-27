@@ -1,6 +1,8 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.UUID;
+import java.sql.Date;
 
 public class Reservation {
 
@@ -10,29 +12,29 @@ public class Reservation {
 
 	private String id = UUID.randomUUID().toString();
 	private String apartmentId;
-	private int nights = 1;
-	private int price;
+	private long startDate;
+	private int nights;
+	private double totalPrice;
 	private String message;
-	private int guestId;
+	private String guestId;
 	private Status status;
-
-	private String confirmation;
+	private ArrayList<Date> reservedDates;
 
 	public Reservation() {
 		super();
 	}
 
-	public Reservation(String id, String apartmentId, int nights, int price, String message, int guestId, Status status,
-			String confirmation) {
+	public Reservation(String id, String apartmentId, long startDate, int nights, double totalPrice, String message,
+			String guestId, Status status) {
 		super();
 		this.id = id;
 		this.apartmentId = apartmentId;
+		this.startDate = startDate;
 		this.nights = nights;
-		this.price = price;
+		this.totalPrice = totalPrice;
 		this.message = message;
 		this.guestId = guestId;
 		this.status = status;
-		this.confirmation = confirmation;
 	}
 
 	public String getId() {
@@ -51,6 +53,14 @@ public class Reservation {
 		this.apartmentId = apartmentId;
 	}
 
+	public long getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(long startDate) {
+		this.startDate = startDate;
+	}
+
 	public int getNights() {
 		return nights;
 	}
@@ -59,12 +69,12 @@ public class Reservation {
 		this.nights = nights;
 	}
 
-	public int getPrice() {
-		return price;
+	public double getTotalPrice() {
+		return totalPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public String getMessage() {
@@ -75,11 +85,11 @@ public class Reservation {
 		this.message = message;
 	}
 
-	public int getGuestId() {
+	public String getGuestId() {
 		return guestId;
 	}
 
-	public void setGuestId(int guestId) {
+	public void setGuestId(String guestId) {
 		this.guestId = guestId;
 	}
 
@@ -91,12 +101,18 @@ public class Reservation {
 		this.status = status;
 	}
 
-	public String getConfirmation() {
-		return confirmation;
+	public ArrayList<Date> getReservedDates() {
+		return reservedDates;
 	}
 
-	public void setConfirmation(String confirmation) {
-		this.confirmation = confirmation;
+	public void setReservedDates(ArrayList<Date> datumiRezervacije) {
+		this.reservedDates = datumiRezervacije;
 	}
 
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", apartmentId=" + apartmentId + ", startDate=" + startDate + ", nights="
+				+ nights + ", totalPrice=" + totalPrice + ", message=" + message + ", guestId=" + guestId + ", status="
+				+ status + ", datumiRezervacije=" + reservedDates + "]";
+	}
 }

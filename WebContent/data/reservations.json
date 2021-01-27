@@ -1,2 +1,22 @@
 [
+   {
+      "id":"111",
+      "apartmentId":"1",
+      "nights":"2",
+      "startDate" : "1610779645",
+      "totalPrice":"100",
+      "message":"test message",
+      "guestId":"301",
+      "status":"ACCEPTED"
+   },
+   {
+      "id":"222",
+      "apartmentId":"2",
+      "nights":"5",
+      "startDate" : "1610979645",
+      "totalPrice":"450",
+      "message":"test message 2",
+      "guestId":"302",
+      "status":"COMPLETED"
+   }
 ]

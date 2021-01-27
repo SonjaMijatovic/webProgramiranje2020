@@ -18,7 +18,6 @@ public class ReservationDao {
 
 	ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 	private String ctxPath;
-	private File reservationsFile;
 	
 	public  ReservationDao(String ctx) {
 		super();
@@ -28,7 +27,6 @@ public class ReservationDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		reservationsFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reservations.json");
 	}
 	
 	public void addReservations(Reservation reservation) {
@@ -41,6 +39,7 @@ public class ReservationDao {
 	
 	public void loadReservations() throws FileNotFoundException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
+		File reservationsFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reservations.json");
 		String json = ""; 
 		String temp;
 		try(BufferedReader br = new BufferedReader(new FileReader(reservationsFile))){
@@ -59,6 +58,7 @@ public class ReservationDao {
 	
 	public void saveReservations() {		
 		ObjectMapper mapper = new ObjectMapper();
+		File reservationsFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reservations.json");
 		try {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(reservationsFile, this.reservations);
 		} catch (IOException e) {

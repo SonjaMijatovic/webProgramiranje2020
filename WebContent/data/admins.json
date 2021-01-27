@@ -1,16 +1,18 @@
-[ {
-  "username" : "admin",
-  "password" : "admin",
-  "firstname" : "Sonja",
-  "lastname" : "Brzak",
-  "gender" : "zenski",
-  "role" : "ADMIN" 
-},
-{
-  "username" : "admin2",
-  "password" : "admin2",
-  "firstname" : "Milica",
-  "lastname" : "Brzak",
-  "gender" : "zenski",
-  "role" : "ADMIN" 
-}]
+[
+   {
+      "username":"admin",
+      "password":"admin",
+      "firstname":"Sonja",
+      "lastname":"Brzak",
+      "gender":"female",
+      "role":"ADMIN"
+   },
+   {
+      "username":"admin2",
+      "password":"admin2",
+      "firstname":"Milica",
+      "lastname":"Brzak",
+      "gender":"female",
+      "role":"ADMIN"
+   }
+]

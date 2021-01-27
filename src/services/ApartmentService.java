@@ -22,7 +22,7 @@ import beans.User;
 import dao.ApartmentDao;
 import dao.UserDao;
 
-@Path("")
+@Path("apartment")
 public class ApartmentService {
 	
 	@Context
@@ -39,7 +39,7 @@ public class ApartmentService {
 	}
 	
 	@GET
-	@Path("/apartments")
+	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Apartment> getAllApartments(){
 		
@@ -48,7 +48,7 @@ public class ApartmentService {
 	}
 	
 	@GET
-	@Path("/apartment/active/{id}")
+	@Path("/active/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Apartment getActiveApartmentById(@PathParam("id") String id) {
@@ -62,7 +62,7 @@ public class ApartmentService {
 	
 	
 	@GET
-	@Path("/apartment/{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Apartment getAnyApartmentById(@PathParam("id") String id) {
@@ -95,7 +95,7 @@ public class ApartmentService {
 		ArrayList<Apartment> list = new ArrayList<Apartment>();
 		
 		for(Apartment apartment : allApartmants) {
-			if(apartment.getHost().equals(host.getUsername())) {
+			if(apartment.getHostUsername().equals(host.getUsername())) {
 				list.add(apartment);
 			}
 		}
@@ -160,11 +160,11 @@ public class ApartmentService {
 	}
 	
 	@GET
-	@Path("/search/{type}/{numberOfRooms}/{numberOfGuests}")
+	@Path("/search/{type}/{numberOfRooms}/{numberOfGuests}/{onlyActive}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Apartment> search(@PathParam("type") Apartment.Type type,
 			@PathParam("numberOfRooms") int numberOfRooms, @PathParam("numberOfGuests") int numberOfGuests,
-			boolean onlyActive){
+			@PathParam("onlyActive") boolean onlyActive){
 		
 		ApartmentDao dao = (ApartmentDao) ctx.getAttribute("apartmentDao");							
 		
@@ -195,7 +195,7 @@ public class ApartmentService {
 		UserDao userDao = (UserDao) ctx.getAttribute("userDao");							
 		
 		Host host = (Host) rq.getSession().getAttribute("user");
-		apartment.setHost(host);
+		apartment.setHostUsername(host.getUsername());
 		
 		host.addApartment(apartment);
 	
@@ -253,7 +253,7 @@ public class ApartmentService {
 		}
 		
 		
-		User apartmentHost = apartment.getHost();
+		String apartmentHost = apartment.getHostUsername();
 		Host host = null;
 		for(User user : userDao.getAllUsers()) {
 			if(user.getUsername().equals(apartmentHost)) {
@@ -270,21 +270,21 @@ public class ApartmentService {
 	@GET
 	@Path("/apartmentHost/{apartmentId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User getapartmentHost(@PathParam("apartmentId") String apartmentId) {
+	public String getapartmentHost(@PathParam("apartmentId") String apartmentId) {
 		
 		ApartmentDao dao = (ApartmentDao) ctx.getAttribute("apartmentDao");									
 		ArrayList<Apartment> allApartments = dao.getAllApartments();
 		
-		User host = null;
+		String hostUsername = null;
 		
 		for(Apartment apartment : allApartments) {
 			if(apartment.getId().equals(apartmentId)) {
-				host = apartment.getHost();
+				hostUsername = apartment.getHostUsername();
 				break;
 			}
 		}
 		
-		return host;
+		return hostUsername;
 	}
 	
 	@GET

@@ -56,7 +56,7 @@ public class UserService {
 		dao.saveUsers();
 		
 		req.getSession().setAttribute("user", newGuest);
-		System.out.println("Logged in user: " + newGuest);
+		System.out.println("Logged in user: " + newGuest.getUsername());
 		
 		return Response.ok().build();	
 	}
@@ -107,7 +107,9 @@ public class UserService {
 		}
 		
 		User user = (User) req.getSession(false).getAttribute("user");
-		System.out.println("Current user: " + user);
+		if (user != null) {
+			System.out.println("Current user: " + user.getUsername());
+		}
 		return user;
 	}
 	

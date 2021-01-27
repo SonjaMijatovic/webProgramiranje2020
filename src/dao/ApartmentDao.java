@@ -18,7 +18,6 @@ public class ApartmentDao {
 	
 	private ArrayList<Apartment> apartments = new ArrayList<Apartment>();
 	private String ctxPath;
-	private File apartmentsFile;
 	
 	public ApartmentDao(String ctx) {
 		super();
@@ -28,7 +27,6 @@ public class ApartmentDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		apartmentsFile = new File(this.ctxPath + "data"+ java.io.File.separator +"apartments.json");
 	}
 	
 	public void addApartment(Apartment a) {
@@ -150,6 +148,7 @@ public class ApartmentDao {
 	
 	public void loadApartments() throws FileNotFoundException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
+		File apartmentsFile = new File(this.ctxPath + "data"+ java.io.File.separator +"apartments.json");
 		String json = ""; 
 		String temp;
 		try(BufferedReader br = new BufferedReader(new FileReader(apartmentsFile))){
@@ -167,6 +166,7 @@ public class ApartmentDao {
 	
 	public void saveApartments() {
 		ObjectMapper mapper = new ObjectMapper();
+		File apartmentsFile = new File(this.ctxPath + "data"+ java.io.File.separator +"apartments.json");
 		try {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(apartmentsFile, this.apartments);
 		} catch (IOException e) {

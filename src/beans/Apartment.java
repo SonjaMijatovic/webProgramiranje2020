@@ -21,9 +21,9 @@ public class Apartment {
 	private int numberOfRooms;
 	private int numberOfGuests;
 	private Location location;
-//	private ArrayList<Date> datumiZaIzdavanje;
-//	private ArrayList<Date> dostupnostPoDatumima;
-	private User host;
+	private ArrayList<Date> datesToRent;
+	private ArrayList<Date> availabilityPerDates;
+	private String hostUsername;
 	private String checkinTime;
 	private String checkoutTime;
 	private int price;
@@ -40,7 +40,7 @@ public class Apartment {
 		super();
 	}
 
-	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, User host,
+	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, String hostUsername,
 			String checkinTime, String checkoutTime, int price, ActiveStatus status, ArrayList<String> images,
 			ArrayList<Amenity> amenities, Collection<Review> reviews, ArrayList<Reservation> reservations,
 			boolean deleted) {
@@ -50,7 +50,7 @@ public class Apartment {
 		this.numberOfRooms = numberOfRooms;
 		this.numberOfGuests = numberOfGuests;
 		this.location = location;
-		this.host = host;
+		this.hostUsername = hostUsername;
 		this.checkinTime = checkinTime;
 		this.checkoutTime = checkoutTime;
 		this.price = price;
@@ -103,12 +103,12 @@ public class Apartment {
 		this.location = location;
 	}
 
-	public User getHost() {
-		return host;
+	public String getHostUsername() {
+		return hostUsername;
 	}
 
-	public void setHost(User host) {
-		this.host = host;
+	public void setHostUsername(String hostUsername) {
+		this.hostUsername = hostUsername;
 	}
 
 	public String getCheckinTime() {
@@ -183,6 +183,22 @@ public class Apartment {
 		this.deleted = deleted;
 	}
 	
+	public ArrayList<Date> getDatesToRent() {
+		return datesToRent;
+	}
+
+	public void setDatesToRent(ArrayList<Date> datesToRent) {
+		this.datesToRent = datesToRent;
+	}
+
+	public ArrayList<Date> getAvailabilityPerDates() {
+		return availabilityPerDates;
+	}
+
+	public void setAvailabilityPerDates(ArrayList<Date> availabilityPerDates) {
+		this.availabilityPerDates = availabilityPerDates;
+	}
+
 	public void addReservation(Reservation reservation) {
 		reservations.add(reservation);
 	}

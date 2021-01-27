@@ -1,2 +1,38 @@
 [
+   {
+      "id":"1",
+      "type":"ENTIRE_PLACE",
+      "numberOfRooms":"1",
+      "numberOfGuests":"3",
+      "location":{
+         "id":"999",
+         "longitude":"32425",
+         "latitude":"34654",
+         "address":{
+            "streetAndNumber":"Sterijina 5",
+            "city":"Novi Sad",
+            "postalCode":"21000"
+         }
+      },
+      "status":"ACTIVE",
+      "price":"32"
+   },
+   {
+      "id":"2",
+      "type":"ROOM",
+      "numberOfRooms":"1",
+      "numberOfGuests":"2",
+      "location":{
+         "id":"888",
+         "longitude":"32425",
+         "latitude":"34654",
+         "address":{
+            "streetAndNumber":"Mokranjceva 12",
+            "city":"Novi Sad",
+            "postalCode":"21000"
+         }
+      },
+      "status":"ACTIVE",
+      "price":"16"
+   }
 ]

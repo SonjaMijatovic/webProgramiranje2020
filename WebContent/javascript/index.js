@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	
-	
 	$("#prijava_button").click(function(event)
 	{
 		event.preventDefault();
@@ -11,6 +10,5 @@ $(document).ready(function(){
 		event.preventDefault();
 		window.location.href = "registration.html";
 	})
-	
 	
 });

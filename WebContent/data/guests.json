@@ -1,2 +1,15 @@
-[
-]
+[ {
+  "username" : "user5",
+  "password" : "lozinka",
+  "firstname" : "Ime5",
+  "lastname" : "Prezime5",
+  "gender" : "female",
+  "role" : "GUEST" 
+},
+{
+  "username" : "user6",
+  "password" : "lozinka",
+  "firstname" : "Ime6",
+  "lastname" : "Prezime6",
+  "gender" : "male"
+}]

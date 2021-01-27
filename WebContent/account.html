@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> User account </title>
+    <script src="javascript/jquery-3.3.1.min.js"></script>
+    <script src="javascript/account.js"></script>
+    <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+    <h2> User account </h2>
+
+    <form>
+        <table id="nalogTabela">
+            <tr id='u'>
+                <td><label id='uloga' class="labele"> User role </label></td>
+            </tr>
+            <tr> 
+                <td> <label id='lab' class="labele"> Username </label></td>
+                <td><input id='korIme' type='text' disabled='disabled' class="polja"> </td>
+            </tr>
+            <tr> 
+                <td><label id='lab2' class="labele"> Password </label></td>
+                <td><input id='staraLoz' type='password' disabled='disabled' class="polja"/></td>
+                <td><button id='izmeni' class="btn1"> Izmeni </button></td>
+            </tr>
+            <tr>
+                <td><label id='lab3' class="labele"> New password </label></td>
+                <td><input id='novaLoz' type='password' class="polja"/></td>
+                <td><p id='novaP' style='color:red'> Password must containt at least 5 characters. </p> </td>
+            </tr>
+            <tr>
+                <td><label id='lab4' class="labele"> Repeat password </label></td>
+                <td><input id='novaLoz2' type='password' class="polja"/></td>
+                <td><p id='ponoviP' style='color:red'> Passwords don't match. </p> </td>
+            </tr>
+            <tr>
+                <td><label id='lab5' class="labele"> Firstname </label></td>
+                <td><input id='ime' type='text' class="polja"/></td>
+                <td><p id='imeP' style='color:red'> Field can't be empty. </p> </td>
+            </tr>
+            <tr>
+                <td><label id='lab6' class="labele"> Lastname: </label></td>
+                <td><input id='prz' type='text' class="polja"/> </td>  
+                <td><p id='przP' style='color:red'> Field can't be empty. </p></td>
+            </tr>
+            <tr>
+                <td><label id='lab7' class="labele"> Genre </label></td>
+                <td><select name='pol' id='pol' class="combo">
+                        <option value='zenski'>Female</option> 
+                        <option value='muski'>Male</option>
+                    </select></td>
+            </tr>
+        </table>
+
+        <br/>
+        <div>
+            <button id='sacuvaj' class="btn2"> Save </button>
+            <button id='odustani' class="btn3"> Cancel </button>
+        </div>
+    </form>
+</body>
+</html>

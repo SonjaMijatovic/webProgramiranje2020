@@ -31,7 +31,7 @@ public class UserDao {
 			e.printStackTrace();
 		}
 
-		Admin admin = new Admin("admin","admin","Sonja","Brzak","zenski");
+		Admin admin = new Admin("admin","admin","Sonja","Brzak","female");
 		users.put(admin.getUsername(), admin);
 		mainAdmin = admin;		
 	}
@@ -142,11 +142,14 @@ public class UserDao {
 		ArrayList<Guest> guests = new ArrayList<Guest>();
 		for (User user: users.values()) {
 			if (user.getRole().equals(Role.GUEST)) {
-				guests.add((Guest)user );
+				guests.add((Guest) user );
 			}
 		}
 		try {
-			mapper.writerWithDefaultPrettyPrinter().writeValue(guestsFile, guests);
+			System.out.println("Writing users to guest file");
+			for (Guest guest : guests) {
+				mapper.writeValue(guestsFile, guest);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -154,11 +157,14 @@ public class UserDao {
 		ArrayList<Host> hosts = new ArrayList<Host>();		
 		for (User user: users.values()) {
 			if (user.getRole().equals(Role.HOST)) {
-				hosts.add((Host)user);
+				hosts.add((Host) user);
 			}
 		}
 		try {
-			mapper.writerWithDefaultPrettyPrinter().writeValue(hostsFile, hosts);
+			System.out.println("Writing users to host file");
+			for (Host host : hosts) {
+				mapper.writerWithDefaultPrettyPrinter().writeValue(hostsFile, host);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

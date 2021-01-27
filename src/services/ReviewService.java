@@ -67,7 +67,7 @@ public class ReviewService {
 		apartment.addReview(review);
 		
 		//add review to the apartment at host
-		String hostUsername = apartment.getHost().getUsername();
+		String hostUsername = apartment.getHostUsername();
 		User user = userDao.getUserByUsername(hostUsername);
 		System.out.println("Username of apartment host where review belongs is: " + hostUsername);
 		
@@ -150,7 +150,7 @@ public class ReviewService {
 	@Path("/setVisibility/{reviewId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response setVidljivost(@PathParam("reviewId") int reviewId, @Context HttpServletRequest rq) {
+	public Response setVisibility(@PathParam("reviewId") int reviewId, @Context HttpServletRequest rq) {
 		
 		ReviewDao reviewDao = (ReviewDao) ctx.getAttribute("reviewDao");
 		ApartmentDao apartmentDao = (ApartmentDao) ctx.getAttribute("apartmentDao");
