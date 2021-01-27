@@ -10,7 +10,6 @@ $(document).ready(function() {
 
     $("#odustani").click(function(event){
         event.preventDefault();
-
         window.location.href = "index.html";
     })
 
@@ -49,7 +48,7 @@ function pozdravPorukaApp(korisnik) {
 	if (korisnik == undefined) {
 		$('#pozPorApp').hide();
 	} else {
-		$('#pozPorApp').text("Pozdrav " + korisnik.korisnicko_ime + " " + korisnik.uloga);
+		$('#pozPorApp').text("Hello " + korisnik.username + " " + korisnik.role);
 		$('#pozPorApp').show();
 	}
 }
@@ -66,47 +65,43 @@ function dodajApartman(korisnik) {
         let geoDuzina = document.getElementById("geoDuzina").textContent;
 
         podaciLokacija = {
-            "geoSirina" : geoSirina,
-            "geoDuzina" : geoDuzina,
-            "adresa" : podaciAdresa
+            "latitude" : geoSirina,
+            "longitude" : geoDuzina,
+            "address" : podaciAdresa
         }
 
     postavljanjeSadrzaja();
     
     var datumiZaIzdavanjeList = getDates(datumOD, datumDO);
-   // alert(datumiZaIzdavanjeList);
     let podaci  = {
         "numberOfRooms": $('#brSoba').val(),
         "numberOfGuests": $('#brGostiju').val(),
         "type": $('#tip option:selected').text(),
         "price": $('#cena').val(),
-        "images": $('#blah').val(),
-        "host": korisnik.korisnicko_ime,
+        "image": $('#blah').val(),
+        "hostUsername": korisnik.username,
         "datesToRent": datumiZaIzdavanjeList,
         "availabilityPerDates": datumiZaIzdavanjeList,
         "location": podaciLokacija,
         "amenities": podaciSadrzaj
     }
-    //alert("Lokacija: " + lokacija);
-
-    let korIme = korisnik.korisnicko_ime;
+    
+    var korIme = korisnik.username;
 
     let s = JSON.stringify(podaci);
-  //  alert(s);
-  //  alert(korIme);
 
     $.ajax ({
-        url: 'rest/apartment/addApartment/',
+        url: 'rest/apartment/add',
         type: 'POST',
         data: s,
         contentType: 'application/json',
         dataType: 'json',
         complete: function(data) {
             if (data["status"] == 200) {
-                alert("Apartment successfuly added");
+                alert("Apartment successfuly added.");
                 window.location.href = "index.html";
             } else {
-                alert("Add apartment was not successful");
+                alert("Apartment was not added.");
             }
         }
     });
@@ -139,11 +134,11 @@ function postavljanjeSadrzaja(){
             for(var i = 0; i < savSadrzaj.length; i++){
                 for(var j = 0; j < cekiraniSadrzaj.length; j++){
                     if(cekiraniSadrzaj[j] == savSadrzaj[i].id){
-                     //   alert(cekiraniSadrzaj[j] + "PRONADJEN!");
                         jednaStavka  = { 
                                         "id": savSadrzaj[i].id,
-                                        "item": savSadrzaj[i].item,
-                                         "uklonjen": false
+                                        "name": savSadrzaj[i].name,
+                                        "type": savSadrzaj[i].type,
+                                        "deleted": false
                                         }
                         podaciSadrzaj.push(jednaStavka);
                     }
@@ -153,13 +148,12 @@ function postavljanjeSadrzaja(){
     })
 }
 
-//prilikom ucitavanja stranice
 function ucitajSadrzajApartmana(){
 
     $.ajax({
         type: 'GET',
         url: 'rest/amenities/all',
-        complete: function(data){
+        complete: function(data) {
 
             let savSadrzaj = data.responseJSON;
 
@@ -169,7 +163,7 @@ function ucitajSadrzajApartmana(){
             for(var i = 0; i < savSadrzaj.length; i++){
                 if(savSadrzaj[i].uklonjen == false){
                     lista.append("<tr><td><input type='checkbox' onclick=ucitajCekiranSadrzaj('"+ savSadrzaj[i].id + "') id='" + savSadrzaj[i].id +"'>" + 
-                    "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].item + "</label></td></tr>");
+                    "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].name + "</label></td></tr>");
                     $("#tabelaSadrzaj").append(lista);
                 }
             }
@@ -215,7 +209,7 @@ function formirajAdresu(){
     let postanskiBroj = $("#postanskiBroj").val();
 
     podaciAdresa = {
-            "street": ulicaBroj,
+            "streetAndNumber": ulicaBroj,
             "city": mesto,
             "postalCode": postanskiBroj
         }

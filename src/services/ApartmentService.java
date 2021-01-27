@@ -186,7 +186,7 @@ public class ApartmentService {
 	}
 
 	@POST
-	@Path("/addApartment")
+	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addApartment(Apartment apartment, @Context HttpServletRequest rq) {
 		

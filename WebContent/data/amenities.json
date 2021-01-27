@@ -1,22 +1,122 @@
-[{
-	"id": 1,
-	"item": "Soap",
-	"available": "true"
-},
-{
-	"id": 2,
-	"item": "Linens",
-	"available": "true"
-},{
-	"id": 3,
-	"item": "Air conditioning",
-	"available": "true"
-},{
-	"id": 4,
-	"item": "Parking",
-	"available": "true"
-},{
-	"id": 5,
-	"item": "Air conditioning",
-	"available": "true"
-},]
+[
+   {
+      "id":1,
+      "name":"WiFi",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":2,
+      "name":"Linens",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":3,
+      "name":"Air conditioning",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":4,
+      "name":"Essentials",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":5,
+      "name":"Laptop friendly",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":6,
+      "name":"Washing machine",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":7,
+      "name":"TV",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":8,
+      "name":"Iron",
+      "type":"BASIC",
+      "deleted":"false"
+   },
+   {
+      "id":9,
+      "name":"Crib",
+      "type":"FAMILY",
+      "deleted":"false"
+   },
+   {
+      "id":10,
+      "name":"High chair",
+      "type":"FAMILY",
+      "deleted":"false"
+   },
+   {
+      "id":11,
+      "name":"Door locks",
+      "type":"FAMILY",
+      "deleted":"false"
+   },
+   {
+      "id":12,
+      "name":"Outlet covers",
+      "type":"FAMILY",
+      "deleted":"false"
+   },
+   {
+      "id":13,
+      "name":"Privacy curtains",
+      "type":"FAMILY",
+      "deleted":"false"
+   },
+   {
+      "id":14,
+      "name":"Kitchen",
+      "type":"DINING",
+      "deleted":"false"
+   },
+   {
+      "id":15,
+      "name":"Microwave",
+      "type":"DINING",
+      "deleted":"false"
+   },
+   {
+      "id":16,
+      "name":"Coffee maker",
+      "type":"DINING",
+      "deleted":"false"
+   },
+   {
+      "id":17,
+      "name":"Refrigerator",
+      "type":"DINING",
+      "deleted":"false"
+   },
+   {
+      "id":18,
+      "name":"Elevator",
+      "type":"FACILITIES",
+      "deleted":"false"
+   },
+   {
+      "id":19,
+      "name":"Free street parking",
+      "type":"FACILITIES",
+      "deleted":"false"
+   },
+   {
+      "id":20,
+      "name":"Paid parking off premises",
+      "type":"FACILITIES",
+      "deleted":"false"
+   }
+]

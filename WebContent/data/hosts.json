@@ -1,2 +1,32 @@
 [
+   {
+      "username":"host1",
+      "password":"lozinka",
+      "firstname":"Pera",
+      "lastname":"Peric",
+      "role":"HOST",
+      "apartments":[
+         
+      ]
+   },
+   {
+      "username":"host2",
+      "password":"lozinka",
+      "firstname":"Mika",
+      "lastname":"Mikic",
+      "role":"HOST",
+      "apartments":[
+         
+      ]
+   },
+   {
+      "username":"host3",
+      "password":"lozinka",
+      "firstname":"Jovan",
+      "lastname":"Jovic",
+      "role":"HOST",
+      "apartments":[
+         
+      ]
+   }
 ]

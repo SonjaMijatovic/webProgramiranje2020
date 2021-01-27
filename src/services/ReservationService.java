@@ -121,7 +121,7 @@ public class ReservationService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Reservation> getHostsReservations(@Context HttpServletRequest rq) {
 
-		Host host = (Host) rq.getSession().getAttribute("korisnik");
+		Host host = (Host) rq.getSession().getAttribute("user");
 
 		ArrayList<Apartment> hostsApartments = host.getApartments();
 		ArrayList<Reservation> reservations = new ArrayList<Reservation>();

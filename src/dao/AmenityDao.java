@@ -17,7 +17,6 @@ public class AmenityDao {
 
 	private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
 	private String ctxPath;
-	private File amenitiesFile;
 	
 	public AmenityDao(String ctx) {
 		super();
@@ -27,7 +26,6 @@ public class AmenityDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		amenitiesFile = new File(this.ctxPath + "data"+ java.io.File.separator +"amenities.json");
 	}
 	
 	public void addAmenity(Amenity amenity) {
@@ -60,6 +58,7 @@ public class AmenityDao {
 	
 	public void loadAmenities() throws FileNotFoundException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
+		File amenitiesFile = new File(this.ctxPath + "data"+ java.io.File.separator +"amenities.json");
 		String json = ""; 
 		String temp;
 		try(BufferedReader br = new BufferedReader(new FileReader(amenitiesFile))){
@@ -79,6 +78,8 @@ public class AmenityDao {
 	
 	public void saveApartmentAmenities() {
 		ObjectMapper mapper = new ObjectMapper();
+		File amenitiesFile = new File(this.ctxPath + "data"+ java.io.File.separator +"amenities.json");
+
 		try {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(amenitiesFile, this.amenities);
 		} catch (IOException e) {

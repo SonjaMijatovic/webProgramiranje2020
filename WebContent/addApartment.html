@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/addApartment.css"> 
     </head>
 <body>
-    <h2>Adding of the new apartment</h2>
+    <h2>Add new apartment</h2>
     <span id ="pozPorApp"></span>
     
     <form id="dodajApartmanForma">
@@ -16,9 +16,9 @@
             	<td></td>
             </tr>
             <tr>
-                <td style="width: 10%"><label> Tip: </label></td>
+                <td style="width: 10%"><label> Type </label></td>
                 <td><select name="tip" id="tip" class="combo">
-                          <option value="Ceo_apartman">Entire apartment</option>
+                          <option value="Ceo_apartman">Apartment</option>
                           <option value="Soba">Room</option>				 
                 </select></td>
             </tr>
@@ -65,15 +65,15 @@
             </tr>
             <tr>
                 <td><label> Address </label>
-                <td><input type='text' id='ulica' class="polja"><label id="greskaUlica" style="color: red;" class="error"> Polje prazno!</label></td>
+                <td><input type='text' id='ulica' class="polja"><label id="greskaUlica" style="color: red;" class="error"> Empty field! </label></td>
             </tr>
             <tr>
                 <td><label> City </label>
-                <td><input type='text' id='mesto' oninput="sirinaDuzinaFunkcija()" class="polja"><label id="greskaMesto" style="color: red;" class="error"> Polje prazno! </label></td>
+                <td><input type='text' id='mesto' oninput="sirinaDuzinaFunkcija()" class="polja"><label id="greskaMesto" style="color: red;" class="error">  Empty field! </label></td>
             </tr>
             <tr>
                 <td><label> Postal code </label>
-                <td><input type='text' id='postanskiBroj' class="polja"><label id="greskaPostanskiBroj" style="color: red;" class="error"> Polje prazno! </label></td>
+                <td><input type='text' id='postanskiBroj' class="polja"><label id="greskaPostanskiBroj" style="color: red;" class="error">  Empty field! </label></td>
             </tr>
             <tr>
                 <td><label> Geographic latitude </label>

@@ -5,12 +5,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-
 public class Apartment {
-
+	
 	public enum Type {
-		ENTIRE_PLACE, ROOM
+		Apartment, Room
 	}
+	
+//	public enum Type {
+//		ENTIRE_PLACE("Entire apartment"),
+//		ROOM("Room");
+//
+//	    public final String label;
+//
+//	    private Type(String label) {
+//	        this.label = label;
+//	    }
+//	}
 	
 	public enum ActiveStatus {
 		ACTIVE, INACTIVE
@@ -28,7 +38,7 @@ public class Apartment {
 	private String checkoutTime;
 	private int price;
 	private ActiveStatus status;
-	private ArrayList<String> images;
+	private String image;
 	private ArrayList<Amenity> amenities;
 
 	private Collection<Review> reviews;
@@ -41,7 +51,7 @@ public class Apartment {
 	}
 
 	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, String hostUsername,
-			String checkinTime, String checkoutTime, int price, ActiveStatus status, ArrayList<String> images,
+			String checkinTime, String checkoutTime, int price, ActiveStatus status, String image,
 			ArrayList<Amenity> amenities, Collection<Review> reviews, ArrayList<Reservation> reservations,
 			boolean deleted) {
 		super();
@@ -55,7 +65,7 @@ public class Apartment {
 		this.checkoutTime = checkoutTime;
 		this.price = price;
 		this.status = status;
-		this.images = images;
+		this.image = image;
 		this.amenities = amenities;
 		this.reviews = reviews;
 		this.reservations = reservations;
@@ -143,12 +153,12 @@ public class Apartment {
 		this.status = status;
 	}
 
-	public ArrayList<String> getImages() {
-		return images;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImages(ArrayList<String> images) {
-		this.images = images;
+	public void setImages(String image) {
+		this.image = image;
 	}
 
 	public ArrayList<Amenity> getAmenities() {

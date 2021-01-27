@@ -16,7 +16,7 @@ public class Reservation {
 	private int nights;
 	private double totalPrice;
 	private String message;
-	private String guestId;
+	private String guestUsername;
 	private Status status;
 	private ArrayList<Date> reservedDates;
 
@@ -25,7 +25,7 @@ public class Reservation {
 	}
 
 	public Reservation(String id, String apartmentId, long startDate, int nights, double totalPrice, String message,
-			String guestId, Status status) {
+			String guestUsername, Status status) {
 		super();
 		this.id = id;
 		this.apartmentId = apartmentId;
@@ -33,7 +33,7 @@ public class Reservation {
 		this.nights = nights;
 		this.totalPrice = totalPrice;
 		this.message = message;
-		this.guestId = guestId;
+		this.guestUsername = guestUsername;
 		this.status = status;
 	}
 
@@ -85,12 +85,12 @@ public class Reservation {
 		this.message = message;
 	}
 
-	public String getGuestId() {
-		return guestId;
+	public String getGuestUsername() {
+		return guestUsername;
 	}
 
-	public void setGuestId(String guestId) {
-		this.guestId = guestId;
+	public void setGuestUsername(String guestUsername) {
+		this.guestUsername = guestUsername;
 	}
 
 	public Status getStatus() {
@@ -112,7 +112,7 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", apartmentId=" + apartmentId + ", startDate=" + startDate + ", nights="
-				+ nights + ", totalPrice=" + totalPrice + ", message=" + message + ", guestId=" + guestId + ", status="
+				+ nights + ", totalPrice=" + totalPrice + ", message=" + message + ", guestUsername=" + guestUsername + ", status="
 				+ status + ", datumiRezervacije=" + reservedDates + "]";
 	}
 }

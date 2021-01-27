@@ -17,7 +17,6 @@ public class ReviewDao {
 
 	private ArrayList<Review> reviews = new ArrayList<Review>();
 	private String ctxPath;
-	private File reviewFile;
 	
 	public ReviewDao(String ctx) {
 		super();
@@ -27,7 +26,6 @@ public class ReviewDao {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		reviewFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reviews.json");
 	}
 	
 	public void addReview(Review review) {
@@ -41,6 +39,7 @@ public class ReviewDao {
 	public void loadReviews() throws FileNotFoundException, IOException{
 		
 		ObjectMapper mapper = new ObjectMapper();
+		File reviewFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reviews.json");
 
 		String json = ""; 
 		String temp;
@@ -61,7 +60,8 @@ public class ReviewDao {
 	}
 	
 	public void saveReviews() { 
-		ObjectMapper mapper = new ObjectMapper();		
+		ObjectMapper mapper = new ObjectMapper();
+		File reviewFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reviews.json");
 		try {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(reviewFile, this.reviews);
 		} catch (IOException e) {

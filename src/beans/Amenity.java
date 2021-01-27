@@ -10,7 +10,7 @@ public class Amenity {
 	private String name;
 	private Type type;
 
-	private boolean deleted;
+	private boolean deleted = false;
 
 	public Amenity() {
 		super();

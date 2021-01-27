@@ -39,15 +39,15 @@ function proveriKorisnika(korisnik){
 			startDate = new Intl.DateTimeFormat('en-GB').format(startDate);
 			
 			if(mojeRezervacije[i].status == "CREATED" || mojeRezervacije[i].status == "ACCEPTED"){
-				lista.append("<tr><td>"+ stvarnoSad + "</td><td>" + mojeRezervacije[i].totalPrice + "</td><td>" + "</td><td>" +  mojeRezervacije[i].status +"</td><td><button id='" + mojeRezervacije[i].id + "' onclick=odustanakRezervacija('" + mojeRezervacije[i].id + "','" + mojeRezervacije[i].apartmentId + "')> Cancel </button></td></tr>");
+				lista.append("<tr><td>"+ startDate + "</td><td>" + mojeRezervacije[i].totalPrice + "</td><td>" + "</td><td>" +  mojeRezervacije[i].status +"</td><td><button id='" + mojeRezervacije[i].id + "' onclick=odustanakRezervacija('" + mojeRezervacije[i].id + "','" + mojeRezervacije[i].apartmentId + "')> Cancel </button></td></tr>");
 				$("#rezervacijeTabela").append(lista);
 				
 			} else if(mojeRezervacije[i].status == "CANCELED"){
-				lista.append("<tr><td>"+ stvarnoSad + "</td><td>" + mojeRezervacije[i].totalPrice + "</td><td>" + "</td><td>" +  mojeRezervacije[i].status +"</td></tr>");
+				lista.append("<tr><td>"+ startDate + "</td><td>" + mojeRezervacije[i].totalPrice + "</td><td>" + "</td><td>" +  mojeRezervacije[i].status +"</td></tr>");
 				$("#rezervacijeTabela").append(lista);
 				
 			} else if (mojeRezervacije[i].status == "REJECTED" || mojeRezervacije[i].status == "COMPLETED"){
-				lista.append("<tr><td>"+ stvarnoSad + "</td><td>" + mojeRezervacije[i].totalPrice + "</td><td>" + "</td><td>" +  mojeRezervacije[i].status +"</td></tr>");
+				lista.append("<tr><td>"+ startDate + "</td><td>" + mojeRezervacije[i].totalPrice + "</td><td>" + "</td><td>" +  mojeRezervacije[i].status +"</td></tr>");
 				$("#rezervacijeTabela").append(lista);
 			}
 		}
@@ -66,18 +66,18 @@ function proveriKorisnika(korisnik){
 
 		$.ajax({
 			type: 'GET',
-			url: 'rest/reservations/hostsReservations',
+			url: 'rest/reservation/hostsReservations',
 			complete: function(data){
 
 				let mojeRezervacije = data.responseJSON;
 				
 				for(var i = 0; i < mojeRezervacije.length; i++){
 					
-					if (mojeRezervacije[i].status == "Kreirana") {
+					if (mojeRezervacije[i].status == "CREATED") {
 						let epoxDate = sveRezervacije[i].startDate;					
 						let startDate = new Date(sveRezervacije[i].startDate * 1000);
 						startDate = new Intl.DateTimeFormat('en-GB').format(startDate);
-						lista.append("<tr><td>" + mojeRezervacije[i].gost + "</td><td>"+ stvarnoSad + "</td><td>" + mojeRezervacije[i].ukCena +  "</td><td>"+ mojeRezervacije[i].status +"</td><td>" +
+						lista.append("<tr><td>" + mojeRezervacije[i].gost + "</td><td>"+ startDate + "</td><td>" + mojeRezervacije[i].ukCena +  "</td><td>"+ mojeRezervacije[i].status +"</td><td>" +
 							 		"<button onclick=prihvatiRezervaciju('" + mojeRezervacije[i].idRezervacije + "','" + mojeRezervacije[i].apartman + "')> Prihvati </button></td><td><button onclick=odbijRezervaciju('"  + mojeRezervacije[i].idRezervacije + "','" + mojeRezervacije[i].apartman + "')> Odbij </button></td></tr>");				
 						$("#rezervacijeTabela").append(lista);
 
@@ -86,7 +86,7 @@ function proveriKorisnika(korisnik){
 						let epoxDate = sveRezervacije[i].startDate;					
 						let startDate = new Date(sveRezervacije[i].startDate * 1000);
 						startDate = new Intl.DateTimeFormat('en-GB').format(startDate);
-						lista.append("<tr><td>" + mojeRezervacije[i].gost + "</td><td>"+ stvarnoSad + "</td><td>" + mojeRezervacije[i].ukCena +  "</td><td>"+ mojeRezervacije[i].status +"</td>"+
+						lista.append("<tr><td>" + mojeRezervacije[i].gost + "</td><td>"+ startDate + "</td><td>" + mojeRezervacije[i].ukCena +  "</td><td>"+ mojeRezervacije[i].status +"</td>"+
 											"<td><button onclick=zavrsenaRezervacija('" + mojeRezervacije[i].idRezervacije + "','" + mojeRezervacije[i].apartman + "')> Završi </button></td><td><button onclick=odbijRezervaciju('"  + mojeRezervacije[i].idRezervacije + "','" + mojeRezervacije[i].apartman + "')> Odbij </button></td></tr>");
 						$("#rezervacijeTabela").append(lista);
 
@@ -94,7 +94,7 @@ function proveriKorisnika(korisnik){
 						let epoxDate = sveRezervacije[i].startDate;					
 						let startDate = new Date(sveRezervacije[i].startDate * 1000);
 						startDate = new Intl.DateTimeFormat('en-GB').format(startDate);
-						lista.append("<tr><td>" + mojeRezervacije[i].gost + "</td><td>"+ stvarnoSad + "</td><td>" + mojeRezervacije[i].ukCena +  "</td><td>"+ mojeRezervacije[i].status +"</td><tr>");
+						lista.append("<tr><td>" + mojeRezervacije[i].gost + "</td><td>"+ startDate + "</td><td>" + mojeRezervacije[i].ukCena +  "</td><td>"+ mojeRezervacije[i].status +"</td><tr>");
 						$("#rezervacijeTabela").append(lista);
 					}
 				}
@@ -125,7 +125,7 @@ function proveriKorisnika(korisnik){
 					let epoxDate = sveRezervacije[i].startDate;					
 					let startDate = new Date(sveRezervacije[i].startDate * 1000);
 					startDate = new Intl.DateTimeFormat('en-GB').format(startDate);
-					lista.append("<tr><td>" + sveRezervacije[i].guestId + "</td><td>" + "</td><td>"+ startDate + "</td><td>" + sveRezervacije[i].totalPrice +  "</td><td>"+ sveRezervacije[i].status +"</td></tr>");
+					lista.append("<tr><td>" + sveRezervacije[i].guestUsername + "</td><td>" + "</td><td>"+ startDate + "</td><td>" + sveRezervacije[i].totalPrice +  "</td><td>"+ sveRezervacije[i].status +"</td></tr>");
 					$("#rezervacijeTabela").append(lista);
 				}
 			}

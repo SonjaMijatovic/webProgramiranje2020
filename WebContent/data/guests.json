@@ -1,4 +1,5 @@
 [ {
+
   "username" : "user5",
   "password" : "lozinka",
   "firstname" : "Ime5",
@@ -11,5 +12,6 @@
   "password" : "lozinka",
   "firstname" : "Ime6",
   "lastname" : "Prezime6",
-  "gender" : "male"
+  "gender" : "male",
+  "role" : "GUEST"
 }]
