@@ -1,0 +1,61 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Users overview </title>
+	<script src="javascript/jquery-3.3.1.min.js"></script>
+	<script src="javascript/usersOverview.js"></script>	
+	<link rel="stylesheet" href="css/usersOverview.css">
+</head>
+<body>
+	<h2> Users Overview </h2>
+	
+	<form>
+		<table  id="korisniciTabela" class="tabela1">
+			<thead>
+				<td> Username </td>
+				<td> Password </td>
+				<td> First name </td>
+				<td> Last name </td>
+				<td> Gender </td>
+				<td> User Role </td>
+				<td> </td>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	</form> <br/>
+
+	<button type="submit" id="prikazPretrage"> Search </button>
+
+	<div id="pretraga">
+		<h3> Search </h3>
+			<table>
+				<tr> 
+					<td class="labele"> Username </td>
+					<td id="k"> <input type="text" id="korImePretraga" class="polja"/></td>
+				</tr>
+				<tr> 
+					<td class="labele"> User Role </td>
+					<td id="k2"> <select id='uloga' class="combo">
+									<option>ADMIN</option>
+									<option>HOST</option>
+									<option>GUEST</option>
+								</select></td>
+				</tr>
+				<tr> 
+					<td class="labele"> Gender </td>
+					<td id="k3"> <select id='pol' class="combo">
+									<option>female</option>
+									<option>male</option>
+								</select></td>
+				</tr>
+				<tr>
+					<td> <button type="submit" id="pretrazi" class="btn2"> Search </button></td>
+					<td> <button type="submit" id="ponisti" class="btn3"> Dismiss </button></td>
+				</tr>
+			</table>
+	</div>
+	
+</body>
+</html>
