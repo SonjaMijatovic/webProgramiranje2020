@@ -1,0 +1,81 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title> Apartment </title>
+    <script src="javascript/jquery-3.3.1.min.js"></script>
+    <script src="javascript/apartmentOverview.js"></script>
+    <link rel="stylesheet" href="css/apartmentOverview.css"> 
+</head>
+<body>
+    <h2> Apartment </h2>
+
+    <form>
+        <table class='tabelica'>
+            <tr>
+                <td style="width: 10%" ><label> Status </label>
+                <td><label id="statusLabela"><b><i></i></b></label><button id="promeniStatusBtn"> Change </button></td>
+            </tr>
+            <tr id='k'>
+                <td><label> Tip: </label></td>  
+            </tr>
+            <tr>
+                <td><label> Number of rooms </label>
+                <td><input type='text' id='brSoba' class="polja"><label style="color: red;" id="greskaBrSobaPor"> Empty field! </label></td>
+            </tr>
+            <tr>
+                <td><label> Number of guests </label>
+                <td><input type='text' id='brGostiju' class="polja"><label style="color: red;" id="greskaBrGostijuPor">  Empty field!  </label></td>
+            </tr>
+            <tr>
+                <td><label>  Price per night </label>
+                <td><input type='text' id='cena' class="polja"><label style="color: red;" id="greskaCenaPor">  Empty field!  </label></td>
+            </tr>
+            <tr>
+                <td><label> Street and number </label>
+                <td><input type='text' id='ulica' class="polja"><label id="greskaUlica" style="color: red;">  Empty field! </label></td>
+            </tr>
+            <tr>
+                <td><label> City </label>
+                <td><input type='text' id='mesto' oninput="sirinaDuzinaFunkcija()" class="polja"><label id="greskaMesto" style="color: red;">  Empty field!  </label></td>
+            </tr>
+            <tr>
+                <td><label> Postal code </label>
+                <td><input type='text' id='postanskiBroj' class="polja"><label id="greskaPostanskiBroj" style="color: red;">  Empty field!  </label></td>
+            </tr>
+            <tr>
+                <td><label> Latitude </label>
+                <td><label id="geoSirina"></label></td>
+            </tr>
+            <tr>
+                <td><label> Longitude </label>
+                <td><label id="geoDuzina"></label></td>
+            </tr>
+            <tr>
+                <td><label> Image </label>
+                <td><input id="slika" type="file" onchange="readURL(this);" class="fajl"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><img  id="blah" src="#" alt="your image" style="height: 100px; width: 100px;" class="picture"/> </td>
+            </tr>
+        </table>
+
+        <h3 class="podnaslovi"> <i> Amenities </i></h3>
+        
+        <table id="tabelaSadrzaj">
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <br/><br/>
+        
+        <table>
+            <tr>
+                <td><button class="btn1" type="submit" id="izmeniApp"> Edit </button></td>
+                <td><button class="btn2" type="submit" id="odustani"> Cancel </button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

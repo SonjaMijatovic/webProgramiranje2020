@@ -4,17 +4,16 @@ body{
 	background-image: url("index.jpg");
 	background-size: cover;
 	background-attachment: fixed;	
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h2{
     color: #FFFF;
-	font-family: Arial, Helvetica, sans-serif;
 	text-shadow: 2px 1px #0000FF;
 }
 
 h3{
     color: #FFFF;
-	font-family: Arial, Helvetica, sans-serif;
 	text-shadow: 2px 1px #0000FF;
 }
 
@@ -23,7 +22,6 @@ button{
 	background: white;
 	padding: 5px 5px;
 	font-size: 13px;
-	font-family: Arial, Helvetica, sans-serif;
 	margin: 5px;
 	cursor: pointer;
 	transition: 0.8s;
@@ -42,7 +40,6 @@ td{
     background: none;
 	padding: 5px 5px;
 	font-size: 13px;
-	font-family: Arial, Helvetica, sans-serif;
     color: #FFFF;
 }
 

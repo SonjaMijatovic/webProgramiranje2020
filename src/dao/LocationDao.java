@@ -111,11 +111,11 @@ public class LocationDao {
 	        return location.getId();
 	    }
 	 
-	 public String update(Location location, String contextPath) {
+	 public String update(Location location) {
 		 boolean match=false;
 	    	try {
 				File file = new File(path + "/web2020/WebContent/data/locations.txt");
-	    		File tempFile = new File(contextPath + "locationsTemp.txt");
+				File tempFile = new File(path + "/web2020/WebContent/data/locationsTemp.txt");
 				BufferedReader in = new BufferedReader(new FileReader(file));
 				BufferedWriter writer =null;
 				writer = new BufferedWriter(new FileWriter(tempFile, true));
@@ -126,7 +126,7 @@ public class LocationDao {
 					if (s.equals(""))
 						continue;
 					String[] tokens = s.split(",");
-					String id= tokens[2];
+					String id= tokens[0];
 					if (id.equals(location.getId())) {
 						newS += location.getId() + ";" +
 								location.getLatitude() + ";" +

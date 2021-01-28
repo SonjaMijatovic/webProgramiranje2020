@@ -23,7 +23,7 @@ $(document).ready(function(){
     tag.setAttribute("id", "emptyUsername");
     let text = document.createTextNode("Field can't be empty.");
     tag.append(text);	
-    tag.style.color = 'red';
+    tag.style.color = '#ED7458';
     let obojeniTekst = tag;
     document.getElementById("k").after(obojeniTekst);
     document.getElementById("emptyUsername").hidden = true;

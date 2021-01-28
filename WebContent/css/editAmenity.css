@@ -12,19 +12,19 @@ body{
 	padding: 0;
 	background-image: url("index.jpg");
 	background-size: cover;
-	background-color: rgb(4, 0, 255);
-	background-attachment: fixed;
+    background-color: var(--background);
+	background-attachment: fixed;	
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2, h3{
+h2 {
 	color: var(--text);
 	text-shadow: 1px 1px var(--text-secondary);
 }
 
 button{
 	background: var(--hover);
-	padding: 5px 5px;
+	padding: 3px 3px;
 	font-size: 13px;
 	margin: 5px;
 	cursor: pointer;
@@ -37,28 +37,12 @@ button:hover {
 	background: var(--background);
 }
 
-.labele {
-	font-size: 15px;
-	color: var(--text);
+label{
+    font-size: 15px;
+	color: var(--text-secondary);
 }
 
-.polja {
-	border: 2px solid var(--text-secondary);
-	border: 1px solid;
-	margin-left: 15px;
-	position: relative;
-	height: 25px;
-}
-
-.combo {
-	border: 1px solid;
-	margin-left: 15px;
-	position: relative;
-	height: 25px;
-	color: var(--text);
-}
-
-.error {
-	font-size: 15px;
-	color: var(--accent);
+.btn2{
+    position: relative;
+    margin-left: 20px;
 }

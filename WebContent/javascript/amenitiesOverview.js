@@ -81,7 +81,7 @@ $(document).ready(function(){
 });
 
 function funkcija(id){
-    window.location.href = "izmenaStavkeSadrzaja.html?id="+ id;
+    window.location.href = "editAmenity.html?id="+ id;
 }
 
 function getAmenities(korisnik){

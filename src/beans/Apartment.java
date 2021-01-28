@@ -278,4 +278,13 @@ public class Apartment {
 		reviews.add(review);
 	}
 
+	@Override
+	public String toString() {
+		return "Apartment [id=" + id + ", type=" + type + ", numberOfRooms=" + numberOfRooms + ", numberOfGuests="
+				+ numberOfGuests + ", location=" + location + ", to=" + to + ", from=" + from + ", hostUsername="
+				+ hostUsername + ", checkinTime=" + checkinTime + ", checkoutTime=" + checkoutTime + ", price=" + price
+				+ ", status=" + status + ", image=" + image + ", amenities=" + amenities + ", reviews=" + reviews
+				+ ", reservations=" + reservations + ", deleted=" + deleted + "]";
+	}
+
 }

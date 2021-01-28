@@ -248,7 +248,9 @@ public class ApartmentService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response editApartment(Apartment apartment, @PathParam("id") String id) {
 		
-		ApartmentDao apartmentDao = (ApartmentDao) ctx.getAttribute("apartmentDao");									
+		ApartmentDao apartmentDao = (ApartmentDao) ctx.getAttribute("apartmentDao");	
+		LocationDao locationDao = (LocationDao) ctx.getAttribute("locationDao");									
+
 		UserDao userDao = (UserDao) ctx.getAttribute("userDao");							
 		
 		if(apartmentDao == null)
@@ -264,20 +266,21 @@ public class ApartmentService {
 				app.setPrice(apartment.getPrice());
 				app.setAmenities(apartment.getAmenities());
 				app.setLocation(apartment.getLocation());
-				System.out.println("Edited apartment: " + app.toString());
+				System.out.println("Apartment to edit: " + app.toString());
 				break;
 			}
 		}
 		
 		String apartmentHost = apartment.getHostUsername();
-		Host host = null;
-		for(User user : userDao.getAllUsers()) {
-			if(user.getUsername().equals(apartmentHost)) {
-				host = (Host) user;
-			}
-		}		
-		host.updateApartment(apartment, id);
-		userDao.update(host);
+//		Host host = null;
+//		for(User user : userDao.getAllUsers()) {
+//			if(user.getUsername().equals(apartmentHost)) {
+//				host = (Host) user;
+//			}
+//		}		
+//		host.updateApartment(apartment, id);
+//		userDao.update(host);
+		locationDao.update(apartment.getLocation());
 		apartmentDao.update(apartment);
 		return Response.ok().build();
 	}

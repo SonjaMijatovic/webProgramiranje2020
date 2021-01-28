@@ -86,7 +86,7 @@ function pozdravPoruka(korisnik) {
 	if (korisnik == undefined) {
 		$('#pozdravPor').hide();
 	} else {
-		$('#pozdravPor').text("Hello " + korisnik.username + " " + korisnik.role);
+		$('#pozdravPor').text("Hello " + korisnik.role.toLowerCase() + " " + korisnik.username);
 		$('#pozdravPor').show();
 	}
 }
@@ -136,14 +136,14 @@ function prikazApartmana(korisnik) {
 							"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 							apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.city + "</td>" +
 							"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-							"</td>" + "<td> <button id='" + apartmani[i].id + "'onclick=window.location.href='novaRezervacija.html?idApartmana=" + apartmani[i].id + "'> Rezerviši </button></td> <td> <button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Komentari </button></td> </tr>");
+							"</td>" + "<td> <button id='" + apartmani[i].id + "'onclick=window.location.href='newReservation.html?idApartmana=" + apartmani[i].id + "'> Make reservation </button></td> <td> <button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 						$("#apartmaniTabela").append(lista);
 					} else {
 						lista.append("<tr id='" + apartmani[i].id + "'><td>" + i + "</td>" +
 							"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 							apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location + "</td>" +
 							"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-							"</td>" + "<td> <button id='" + apartmani[i].id + "' onclick=window.location.href='novaRezervacija.html?idApartmana=" + apartmani[i].id + "'> Rezerviši </button></td> <td> <button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Komentari</button></td> </tr>");
+							"</td>" + "<td> <button id='" + apartmani[i].id + "' onclick=window.location.href='newReservation.html?idApartmana=" + apartmani[i].id + "'> Make reservation </button></td> <td> <button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 						$("#apartmaniTabela").append(lista);
 					}
 				}
@@ -170,8 +170,8 @@ function prikazApartmana(korisnik) {
 								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.city + "</td>" +
 								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-								"</td>" + "<td>" + apartmani[i].type + "</td>" + "<td> <button onClick=window.location.href='podaciApartman.html?idApartmana=" + apartmani[i].id + "'> Izmeni </button></td>" +
-								"<td> <button id='" + apartmani[i].id + "'> Obriši </button> </td> </tr>");
+								"</td>" + "<td>" + apartmani[i].type + "</td>" + "<td> <button onClick=window.location.href='apartmentOverview.html?idApartmana=" + apartmani[i].id + "'> Edit </button></td>" +
+								"<td> <button id='" + apartmani[i].id + "'> Delete </button> </td> </tr>");
 
 							let id = apartmani[i].id;
 
@@ -197,8 +197,8 @@ function prikazApartmana(korisnik) {
 								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location + "</td>" +
 								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-								"</td>" + "<td>" + apartmani[i].type + "</td>" + "<td> <button onClick=window.location.href='podaciApartman.html?idApartmana=" + apartmani[i].id + "'> Izmeni </button></td>" +
-								"<td> <button id='" + apartmani[i].id + "'> Obriši </button> </td> </tr>");
+								"</td>" + "<td>" + apartmani[i].type + "</td>" + "<td> <button onClick=window.location.href='apartmentOverview.html?idApartmana=" + apartmani[i].id + "'> Edit </button></td>" +
+								"<td> <button id='" + apartmani[i].id + "'> Delete </button> </td> </tr>");
 
 							let id = apartmani[i].id;
 
@@ -219,7 +219,7 @@ function prikazApartmana(korisnik) {
 							$("#apartmaniTabela").append(lista);
 						}
 					} else {
-						lista.append("<tr style='background-color:red'><td>" + i + "</td>" +
+						lista.append("<tr style='background-color:#ED7458'><td>" + i + "</td>" +
 							"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 							apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location + "</td>" +
 							"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
@@ -252,13 +252,13 @@ function prikazApartmana(korisnik) {
 								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.city + "</td>" +
 								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
+								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Edit </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 
 							let id = apartmani[i].id;
 
 							document.getElementById(apartmani[i].id).onclick = function fun() {
 								// alert(id);
-								window.location.href = "podaciApartman.html?idApartmana=" + id;
+								window.location.href = "apartmentOverview.html?idApartmana=" + id;
 							}
 
 							$("#apartmaniTabela").append(lista);
@@ -267,13 +267,13 @@ function prikazApartmana(korisnik) {
 								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location + "</td>" +
 								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
+								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Edit </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 
 							let id = apartmani[i].id;
 
 							document.getElementById(apartmani[i].id).onclick = function fun() {
 								// alert(id);
-								window.location.href = "podaciApartman.html?idApartmana=" + id;
+								window.location.href = "apartmentOverview.html?idApartmana=" + id;
 							}
 
 							$("#apartmaniTabela").append(lista);

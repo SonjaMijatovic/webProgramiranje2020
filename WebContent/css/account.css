@@ -1,69 +1,70 @@
+:root {
+    --text:#433E49;
+    --text-secondary:#928490;
+    --background:#DBC1AD;
+    --background2:#dbd8ad;
+    --hover:#F3E8EB;
+    --accent:#ED7458
+}
+
 body{
 	margin: 5;
 	padding: 0;
 	background-image: url("index.jpg");
 	background-size: cover;
-	background-color: rgb(4, 0, 255);
+    background-color: var(--background);
 	background-attachment: fixed;	
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h2{
-	color: #FFFF;
-  	font-family: Arial, Helvetica, sans-serif;
-	text-shadow: 2px 1px #0000FF;
+	color: var(--text);
+	text-shadow: 1px 1px var(--text-secondary);
 }
 
 label{
     font-size: 15px;
-  	font-family: Arial, Helvetica, sans-serif;
-	color: #1E90FF;
+	color: var(--text-secondary);
 }
 
 .labele {
 	font-size: 20px;
-  	font-family: Arial, Helvetica, sans-serif;
-	color: white;
+	color: var(--text-secondary);
 }
 
 button{
-	border: 2px solid #FFFF;
-	background: white;
+	background: var(--hover);
 	padding: 3px 3px;
 	font-size: 13px;
-  	font-family: Arial, Helvetica, sans-serif;
 	margin: 5px;
 	cursor: pointer;
 	transition: 0.8s;
     position: hidden;
     height: 25px;
-    color: #1E90FF;
+	color: var(--text);
     font-weight: bold;
 }
 
-.btn1:hover, .btn2:hover, .btn3:hover{
-	border: 1px solid #fff;
-	background: #1E90FF;
-	color: #fff;
+button:hover {
+	background: var(--background);
 }
 
 .polja {
-	border: 1px solid #3498db;
+	border: 1px solid var(--text);
 	position: relative;
 	height: 25px;
 }
 
 p{
     font-size: 15px;
-  	font-family: Arial, Helvetica, sans-serif;
     color: red;
     font-weight: bold;
 }
 
 .combo {
-	border: 1px solid #3498db;
+	border: 1px solid;
 	position: relative;
 	height: 25px;
-  	font-family: Arial, Helvetica, sans-serif;
-	color: #1E90FF;
+	color: var(--text);
 }
 
