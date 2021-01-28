@@ -153,9 +153,8 @@ $(document).ready(function(){
                                     $("#apartmaniTabela").append(lista);        
                                 }
                             }
-                        })
+                        });
                     } else if(korisnik.uloga == "Domacin"){
-
                     }
                 }
             })
