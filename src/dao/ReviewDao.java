@@ -37,10 +37,8 @@ public class ReviewDao {
 	}
 	
 	public void loadReviews() throws FileNotFoundException, IOException{
-		
 		ObjectMapper mapper = new ObjectMapper();
 		File reviewFile = new File(this.ctxPath + "data"+ java.io.File.separator +"reviews.json");
-
 		String json = ""; 
 		String temp;
 		try(BufferedReader br = new BufferedReader(new FileReader(reviewFile))){
@@ -49,8 +47,7 @@ public class ReviewDao {
 			}
 		}
 		
-		List<Review> reviewList =  mapper.readValue(json, 
-			    new TypeReference<ArrayList<Review>>() {});
+		List<Review> reviewList =  mapper.readValue(json, new TypeReference<ArrayList<Review>>() {});
 		
 		this.reviews.clear();
 		// TODO add all elements at once

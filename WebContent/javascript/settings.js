@@ -33,7 +33,7 @@ function dodatneOpcije(korisnik) {
 		$("#acc_buttons").append("<button type='submit' id='korisnici_Btn' onclick=pregledKorisnika()>Users Overview </button> <br/>");
 		$("#acc_buttons").append("<button type='submit' id='sadrzaj_Btn' onclick=amenitiesOverview()> Amenities Overview </button><br/>");
 		$("#acc_buttons").append("<button type='submit' id='rezervacije_Btn' onclick=reservationOverview()> Reservation Overview </button><br/>");
-		$("#acc_buttons").append("<button type='submit' id='komentari_Btn' onclick=pregledKomentara()> PReviews Overview </button> <br/>");
+		$("#acc_buttons").append("<button type='submit' id='komentari_Btn' onclick=reviewOverview()> Reviews Overview </button> <br/>");
 	} else if (korisnik.role == "GUEST") {
 		$("#acc_buttons").append("<button type='submit' id='rezervacije' onclick=reservationOverview()> My reservations </button> <br/>");
 	} else if (korisnik.role == "HOST") {
@@ -78,8 +78,8 @@ function amenitiesOverview() {
 	window.location.href = "amenitiesOverview.html";
 }
 
-function pregledKomentara() {
-	window.location.href = "pregledKomentara.html";
+function reviewOverview() {
+	window.location.href = "reviewOverview.html";
 }
 
 function pozdravPoruka(korisnik) {
@@ -136,14 +136,14 @@ function prikazApartmana(korisnik) {
 							"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 							apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.city + "</td>" +
 							"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-							"</td>" + "<td> <button id='" + apartmani[i].id + "'onclick=window.location.href='novaRezervacija.html?idApartmana=" + apartmani[i].id + "'> Rezerviši </button></td> <td> <button onclick=pregledKomentara('" + apartmani[i].id + "')> Komentari </button></td> </tr>");
+							"</td>" + "<td> <button id='" + apartmani[i].id + "'onclick=window.location.href='novaRezervacija.html?idApartmana=" + apartmani[i].id + "'> Rezerviši </button></td> <td> <button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Komentari </button></td> </tr>");
 						$("#apartmaniTabela").append(lista);
 					} else {
 						lista.append("<tr id='" + apartmani[i].id + "'><td>" + i + "</td>" +
 							"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
 							apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location + "</td>" +
 							"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-							"</td>" + "<td> <button id='" + apartmani[i].id + "' onclick=window.location.href='novaRezervacija.html?idApartmana=" + apartmani[i].id + "'> Rezerviši </button></td> <td> <button onclick=pregledKomentara('" + apartmani[i].id + "')> Komentari</button></td> </tr>");
+							"</td>" + "<td> <button id='" + apartmani[i].id + "' onclick=window.location.href='novaRezervacija.html?idApartmana=" + apartmani[i].id + "'> Rezerviši </button></td> <td> <button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Komentari</button></td> </tr>");
 						$("#apartmaniTabela").append(lista);
 					}
 				}
@@ -252,7 +252,7 @@ function prikazApartmana(korisnik) {
 								"<td>" + apartmani[i].brSoba + "</td> " + "<td>" +
 								apartmani[i].brGostiju + "</td>" + "<td>" + apartmani[i].lokacija.adresa.naseljenoMesto + "</td>" +
 								"<td>" + apartmani[i].domacin + "</td>" + "<td>" + apartmani[i].cenaPoNoci +
-								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=pregledKomentara('" + apartmani[i].id + "')> Komentari </button></td> </tr>");
+								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 
 							let id = apartmani[i].id;
 
@@ -267,7 +267,7 @@ function prikazApartmana(korisnik) {
 								"<td>" + apartmani[i].brSoba + "</td> " + "<td>" +
 								apartmani[i].brGostiju + "</td>" + "<td>" + apartmani[i].lokacija + "</td>" +
 								"<td>" + apartmani[i].domacin + "</td>" + "<td>" + apartmani[i].cenaPoNoci +
-								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=pregledKomentara('" + apartmani[i].id + "')> Komentari </button></td> </tr>");
+								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 
 							let id = apartmani[i].id;
 
@@ -285,9 +285,9 @@ function prikazApartmana(korisnik) {
 	}
 }
 
-function pregledKomentara(idAp) {
 
-	window.location.href = "pregledKomentara.html?idApartmana=" + idAp;
+function reviewOverviewByApartment(idAp) {
+	window.location.href = "reviewOverview.html?idApartmana=" + idAp;
 }
 
 function apartmaniZaKomentarisanje() {

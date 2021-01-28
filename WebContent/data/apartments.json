@@ -16,7 +16,21 @@
       },
       "status":"ACTIVE",
       "price":"32",
-      "hostUsername": "host2"
+      "hostUsername":"host2",
+      "amenities":[
+         {
+            "id":1,
+            "name":"WiFi",
+            "type":"BASIC",
+            "deleted":"false"
+         },
+         {
+            "id":2,
+            "name":"Linens",
+            "type":"BASIC",
+            "deleted":"false"
+         }
+      ]
    },
    {
       "id":"2",
@@ -35,6 +49,20 @@
       },
       "status":"ACTIVE",
       "price":"16",
-      "hostUsername": "host1"
+      "hostUsername":"host1",
+      "amenities":[
+         {
+            "id":1,
+            "name":"WiFi",
+            "type":"BASIC",
+            "deleted":"false"
+         },
+         {
+            "id":2,
+            "name":"Linens",
+            "type":"BASIC",
+            "deleted":"false"
+         }
+      ]
    }
 ]

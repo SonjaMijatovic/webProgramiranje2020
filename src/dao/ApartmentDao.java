@@ -155,8 +155,7 @@ public class ApartmentDao {
 				json += temp;
 			}
 		}
-		List<Apartment> list = mapper.readValue(json, new TypeReference<ArrayList<Apartment>>() {
-		});
+		List<Apartment> list = mapper.readValue(json, new TypeReference<ArrayList<Apartment>>() {});
 
 		this.apartments.clear();
 		for (Apartment apartment : list) {

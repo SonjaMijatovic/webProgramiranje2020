@@ -147,10 +147,10 @@ public class ReviewService {
 //	}
 	
 	@PUT
-	@Path("/setVisibility/{reviewId}")
+	@Path("/changeVisibility/{reviewId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response setVisibility(@PathParam("reviewId") int reviewId, @Context HttpServletRequest rq) {
+	public Response changeVisibility(@PathParam("reviewId") int reviewId, @Context HttpServletRequest rq) {
 		
 		ReviewDao reviewDao = (ReviewDao) ctx.getAttribute("reviewDao");
 		ApartmentDao apartmentDao = (ApartmentDao) ctx.getAttribute("apartmentDao");
