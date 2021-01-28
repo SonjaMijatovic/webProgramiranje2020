@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Amenities Overview</title>
+    <script src="javascript/jquery-3.3.1.min.js"></script>
+    <script src="javascript/amenitiesOverview.js"></script>
+    <link rel="stylesheet" href="css/amenitiesOverview.css">
+</head>
+<body>
+    <h2>Amenities Overview</h2>
+
+    <form>
+        <table id="sadrzajApartmana" class="tabela1">
+            <thead>
+                <tr>
+                    <td><b>Id</b></td>
+                    <td><b>Name</b></td>
+                    <td><b>Type</b></td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </form>
+
+    <h3>Add new amenity</h3>
+    <form>
+        <table>
+            <tr>
+                <td> <label>Id</label></td>
+                <td> <input type="text" id="IdStavke" /></td>
+                <td> <label id="idPoruka" style="color:red">Field can't be empty!</label></td>
+            </tr>
+            <tr>
+                <td> <label>Name</label></td>
+                <td> <input type="text" id="nazivStavke" /></td>
+                <td> <label id="nazivPoruka" style="color:red">Field can't be empty!</label></td>
+            </tr>
+            <tr>
+                <td> <label>Type</label></td>
+                <td> <input type="text" id="tipStavke" /></td>
+                <td> <label id="tipPoruka" style="color:red">Field can't be empty!</label></td>
+            </tr>
+            <tr>
+                <td> <button id="dodajStavku" class="btn1">Add</button></td>
+                <td> <button id="odustani" class="btn2">Cancel</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

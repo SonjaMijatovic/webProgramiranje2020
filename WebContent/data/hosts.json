@@ -4,6 +4,7 @@
       "password":"lozinka",
       "firstname":"Pera",
       "lastname":"Peric",
+      "gender":"male",
       "role":"HOST",
       "apartments":[
          
@@ -14,6 +15,7 @@
       "password":"lozinka",
       "firstname":"Mika",
       "lastname":"Mikic",
+      "gender":"male",
       "role":"HOST",
       "apartments":[
          
@@ -24,6 +26,7 @@
       "password":"lozinka",
       "firstname":"Jovan",
       "lastname":"Jovic",
+      "gender":"male",
       "role":"HOST",
       "apartments":[
          

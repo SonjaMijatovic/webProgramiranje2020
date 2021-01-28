@@ -31,7 +31,7 @@ function dodatneOpcije(korisnik) {
 
 	if (korisnik.role == "ADMIN") {
 		$("#acc_buttons").append("<button type='submit' id='korisnici_Btn' onclick=pregledKorisnika()>Users Overview </button> <br/>");
-		$("#acc_buttons").append("<button type='submit' id='sadrzaj_Btn' onclick=pregledSadrzajaApartmana()> Amenities Overview </button><br/>");
+		$("#acc_buttons").append("<button type='submit' id='sadrzaj_Btn' onclick=amenitiesOverview()> Amenities Overview </button><br/>");
 		$("#acc_buttons").append("<button type='submit' id='rezervacije_Btn' onclick=reservationOverview()> Reservation Overview </button><br/>");
 		$("#acc_buttons").append("<button type='submit' id='komentari_Btn' onclick=pregledKomentara()> PReviews Overview </button> <br/>");
 	} else if (korisnik.role == "GUEST") {
@@ -74,9 +74,8 @@ function dodajApartman() {
 	window.location.href = "addApartment.html";
 }
 
-
-function pregledSadrzajaApartmana() {
-	window.location.href = "dodajNoviSadrzaj.html";
+function amenitiesOverview() {
+	window.location.href = "amenitiesOverview.html";
 }
 
 function pregledKomentara() {
