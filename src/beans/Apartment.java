@@ -31,8 +31,8 @@ public class Apartment {
 	private int numberOfRooms;
 	private int numberOfGuests;
 	private Location location;
-	private ArrayList<Date> datesToRent;
-	private ArrayList<Date> availabilityPerDates;
+	private long to;
+	private long from;
 	private String hostUsername;
 	private String checkinTime;
 	private String checkoutTime;
@@ -44,18 +44,57 @@ public class Apartment {
 	private Collection<Review> reviews;
 	private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 
-	private boolean deleted;
+	private boolean deleted = false;
 
 	public Apartment() {
 		super();
 	}
-
-	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, String hostUsername,
-			String checkinTime, String checkoutTime, int price, ActiveStatus status, String image,
-			ArrayList<Amenity> amenities, Collection<Review> reviews, ArrayList<Reservation> reservations,
-			boolean deleted) {
+	
+	// TODO remove this constructor when amenities reading words
+	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, long to, long from,
+			String hostUsername, String checkinTime, String checkoutTime, int price, ActiveStatus status, String image) {
 		super();
 		this.id = id;
+		this.type = type;
+		this.numberOfRooms = numberOfRooms;
+		this.numberOfGuests = numberOfGuests;
+		this.location = location;
+		this.to = to;
+		this.from = from;
+		this.hostUsername = hostUsername;
+		this.checkinTime = checkinTime;
+		this.checkoutTime = checkoutTime;
+		this.price = price;
+		this.status = status;
+		this.image = image;
+		this.reservations = new ArrayList<Reservation>();
+	}
+
+	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, long to, long from,
+			String hostUsername, String checkinTime, String checkoutTime, int price, ActiveStatus status, String image,
+			ArrayList<Amenity> amenities) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.numberOfRooms = numberOfRooms;
+		this.numberOfGuests = numberOfGuests;
+		this.location = location;
+		this.to = to;
+		this.from = from;
+		this.hostUsername = hostUsername;
+		this.checkinTime = checkinTime;
+		this.checkoutTime = checkoutTime;
+		this.price = price;
+		this.status = status;
+		this.image = image;
+		this.amenities = amenities;
+		this.reservations = new ArrayList<Reservation>();
+	}
+
+	public Apartment(Type type, int numberOfRooms, int numberOfGuests, Location location,
+			String hostUsername, String checkinTime, String checkoutTime, int price, ActiveStatus status, String image,
+			ArrayList<Amenity> amenities, Collection<Review> reviews, ArrayList<Reservation> reservations) {
+		super();
 		this.type = type;
 		this.numberOfRooms = numberOfRooms;
 		this.numberOfGuests = numberOfGuests;
@@ -69,9 +108,7 @@ public class Apartment {
 		this.amenities = amenities;
 		this.reviews = reviews;
 		this.reservations = reservations;
-		this.deleted = deleted;
 	}
-
 
 	public String getId() {
 		return id;
@@ -111,6 +148,22 @@ public class Apartment {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public long getTo() {
+		return to;
+	}
+
+	public void setTo(long to) {
+		this.to = to;
+	}
+
+	public long getFrom() {
+		return from;
+	}
+
+	public void setFrom(long from) {
+		this.from = from;
 	}
 
 	public String getHostUsername() {
@@ -157,7 +210,7 @@ public class Apartment {
 		return image;
 	}
 
-	public void setImages(String image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
@@ -191,22 +244,6 @@ public class Apartment {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
-	}
-	
-	public ArrayList<Date> getDatesToRent() {
-		return datesToRent;
-	}
-
-	public void setDatesToRent(ArrayList<Date> datesToRent) {
-		this.datesToRent = datesToRent;
-	}
-
-	public ArrayList<Date> getAvailabilityPerDates() {
-		return availabilityPerDates;
-	}
-
-	public void setAvailabilityPerDates(ArrayList<Date> availabilityPerDates) {
-		this.availabilityPerDates = availabilityPerDates;
 	}
 
 	public void addReservation(Reservation reservation) {

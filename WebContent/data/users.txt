@@ -1,0 +1,8 @@
+admin;admin;Sonja;Brzak;female;ADMIN
+admin2;admin2;Sinisa;Brzak;male;ADMIN
+user1;lozinka;user1first;lastuser1;Female;HOST
+user2;lozinka;user2;user2last;Female;HOST
+user3;lozinka;user3first;user3;Female;HOST
+guest1;lozinka;guest1;guest1;Female;GUEST
+
+user1;lozinka;user1first;lastuser1;Female;HOST

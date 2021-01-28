@@ -37,7 +37,7 @@ function dodatneOpcije(korisnik) {
 	} else if (korisnik.role == "GUEST") {
 		$("#acc_buttons").append("<button type='submit' id='rezervacije' onclick=reservationOverview()> My reservations </button> <br/>");
 	} else if (korisnik.role == "HOST") {
-		$("#acc_buttons").append("<button type='submit' id='dodajApp_Btn' onclick=dodajApartman()>Add apartment </button> <br/>");
+		$("#acc_buttons").append("<button type='submit' id='dodajApp_Btn' onclick=addApartment()>Add apartment </button> <br/>");
 		$("#acc_buttons").append("<button type='submit' id='rezervacije_Btn' onclick=reservationOverview()> My reservations </button><br/>");
 	}
 }
@@ -70,7 +70,7 @@ function usersOverview() {
 	window.location.href = "usersOverview.html";
 }
 
-function dodajApartman() {
+function addApartment() {
 	window.location.href = "addApartment.html";
 }
 
@@ -168,9 +168,9 @@ function prikazApartmana(korisnik) {
 						if (apartmani[i].location != null) {
 							lista.append("<tr><td>" + i + "</td>" +
 								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
-								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.caty + "</td>" +
+								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.city + "</td>" +
 								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
-								"</td>" + "<td>" + apartmani[i].type.label + "</td>" + "<td> <button onClick=window.location.href='podaciApartman.html?idApartmana=" + apartmani[i].id + "'> Izmeni </button></td>" +
+								"</td>" + "<td>" + apartmani[i].type + "</td>" + "<td> <button onClick=window.location.href='podaciApartman.html?idApartmana=" + apartmani[i].id + "'> Izmeni </button></td>" +
 								"<td> <button id='" + apartmani[i].id + "'> Obriši </button> </td> </tr>");
 
 							let id = apartmani[i].id;
@@ -247,11 +247,11 @@ function prikazApartmana(korisnik) {
 				for (var i = 0; i < apartmani.length; i++) {
 					let x = apartmani[i].uklonjen;
 					if (!x) {
-						if (apartmani[i].lokacija != null) {
+						if (apartmani[i].location != null) {
 							lista.append("<tr><td>" + i + "</td>" +
-								"<td>" + apartmani[i].brSoba + "</td> " + "<td>" +
-								apartmani[i].brGostiju + "</td>" + "<td>" + apartmani[i].lokacija.adresa.naseljenoMesto + "</td>" +
-								"<td>" + apartmani[i].domacin + "</td>" + "<td>" + apartmani[i].cenaPoNoci +
+								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
+								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location.address.city + "</td>" +
+								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
 								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 
 							let id = apartmani[i].id;
@@ -264,9 +264,9 @@ function prikazApartmana(korisnik) {
 							$("#apartmaniTabela").append(lista);
 						} else {
 							lista.append("<tr><td>" + i + "</td>" +
-								"<td>" + apartmani[i].brSoba + "</td> " + "<td>" +
-								apartmani[i].brGostiju + "</td>" + "<td>" + apartmani[i].lokacija + "</td>" +
-								"<td>" + apartmani[i].domacin + "</td>" + "<td>" + apartmani[i].cenaPoNoci +
+								"<td>" + apartmani[i].numberOfRooms + "</td> " + "<td>" +
+								apartmani[i].numberOfGuests + "</td>" + "<td>" + apartmani[i].location + "</td>" +
+								"<td>" + apartmani[i].hostUsername + "</td>" + "<td>" + apartmani[i].price +
 								"</td>" + "<td> <button id='" + apartmani[i].id + "'> Izmeni </button></td><td><button onclick=reviewOverviewByApartment('" + apartmani[i].id + "')> Reviews </button></td> </tr>");
 
 							let id = apartmani[i].id;
@@ -299,8 +299,8 @@ function apartmaniZaKomentarisanje() {
 			let sviApartmani = data.responseJSON;
 
 			for (var i = 0; i < sviApartmani.length; i++) {
-				var id = sviApartmani[i].idApartmana;
-				$("#" + id).append("<td><button onclick=window.location.href='dodajKomentar.html?idApartmana=" + id + "'> Postavite komentar </button></td>");
+				var id = sviApartmani[i].id;
+				$("#" + id).append("<td><button onclick=window.location.href='addReview.html?idApartmana=" + id + "'> Tel us your review </button></td>");
 			}
 		}
 	})

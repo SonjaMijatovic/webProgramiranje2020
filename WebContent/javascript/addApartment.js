@@ -54,8 +54,8 @@ function pozdravPorukaApp(korisnik) {
 }
 
 function dodajApartman(korisnik) {
-   // alert($('#datumZaIzdOD').val());
-  //  alert($('#datumZaIzdDO').val());
+//    alert($('#datumZaIzdOD').val());
+//    alert($('#datumZaIzdDO').val());
     var datumOD = new Date($('#datumZaIzdOD').val());
     var datumDO = new Date($('#datumZaIzdDO').val());
 
@@ -79,9 +79,8 @@ function dodajApartman(korisnik) {
         "type": $('#tip option:selected').text(),
         "price": $('#cena').val(),
         "image": $('#blah').val(),
-        "hostUsername": korisnik.username,
-        "datesToRent": datumiZaIzdavanjeList,
-        "availabilityPerDates": datumiZaIzdavanjeList,
+        "from": 1657893,
+        "to": 1657942,
         "location": podaciLokacija,
         "amenities": podaciSadrzaj
     }
@@ -156,12 +155,11 @@ function ucitajSadrzajApartmana(){
         complete: function(data) {
 
             let savSadrzaj = data.responseJSON;
-
             let lista = $("#tabelaSadrzaj tbody");
             lista.empty();
 
             for(var i = 0; i < savSadrzaj.length; i++){
-                if(savSadrzaj[i].uklonjen == false){
+                if(savSadrzaj[i].deleted == false){
                     lista.append("<tr><td><input type='checkbox' onclick=ucitajCekiranSadrzaj('"+ savSadrzaj[i].id + "') id='" + savSadrzaj[i].id +"'>" + 
                     "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].name + "</label></td></tr>");
                     $("#tabelaSadrzaj").append(lista);

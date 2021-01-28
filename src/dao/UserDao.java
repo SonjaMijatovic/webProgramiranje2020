@@ -5,45 +5,74 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.StringTokenizer;
 
 import beans.Admin;
-import beans.Host;
-import beans.Guest;
 import beans.User;
-import beans.User.Role;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class UserDao {
 
 	private HashMap<String, User> users = new HashMap<String, User>();
 	public static Admin mainAdmin;
-	private String contextPath;
+	
+	Path currentDir = Paths.get("");
+	String path = currentDir.toAbsolutePath().toString();
 	
 	public UserDao(String path) {		
-		contextPath = path;
-//		try {
-//			loadUsers();
-//		}catch(IOException e) {
-//			e.printStackTrace();
-//		}
+		read();
 
-		Admin admin = new Admin("admin","admin","Sonja","Brzak","female");
-		Admin admin2 = new Admin("admin2","admin2","Sinisa","Brzak","male");
+//		Admin admin = new Admin("admin","admin","Sonja","Brzak","female");
+//		Admin admin2 = new Admin("admin2","admin2","Sinisa","Brzak","male");
 
-		save(contextPath, admin);
-		save(contextPath, admin2);
-		users.put(admin.getUsername(), admin);
-		mainAdmin = admin;		
+//		save(admin);
+//		save(admin2);
+//		users.put(admin.getUsername(), admin);
+//		mainAdmin = admin;		
+	}
+	
+
+    public void read () {
+		BufferedReader in = null;
+		try {
+			File file = new File(path + "/web2020/WebContent/data/users.txt");
+			System.out.println("reading from file path" + file.getAbsolutePath());
+			in = new BufferedReader(new FileReader(file));
+			String s;
+			StringTokenizer st;
+			while ((s = in.readLine()) != null) {
+				s = s.trim();
+				if (s.equals(""))
+					continue;
+				st = new StringTokenizer(s, ";");
+				while (st.hasMoreTokens()) {
+					String username = st.nextToken();
+					String password = st.nextToken();
+					String firstname = st.nextToken();
+					String lastname = st.nextToken();
+					String gender = st.nextToken();
+					String role = st.nextToken();
+					System.out.println("user role " + User.Role.valueOf(role));
+					users.put(username, new User(username, password, firstname, lastname, gender,  User.Role.valueOf(role)));
+				}
+
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception e) { }
+			}
+		}
 	}
 	
 	public void addUser(User user) {
@@ -78,74 +107,8 @@ public class UserDao {
 		}
 		return list;
 	}
-	
-	public void updateUser(User user) {
-		users.put(user.getUsername(), user);
-	}
-	
-//	private void loadUsers() throws IOException {
-//		ObjectMapper mapper = new ObjectMapper();
-//		
-//		File adminFile = new File(this.contextPath + "data" + java.io.File.separator + "admins.json");
-//		File hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
-//		File guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
-//				
-//		String json = ""; 
-//		String temp;
-//		
-//		if(adminFile.exists()) {
-//			try(BufferedReader br = new BufferedReader(new FileReader(adminFile))){
-//				while ((temp = br.readLine()) != null) {
-//					json += temp;
-//				}
-//			}	
-//			
-//			List<Admin> admins = mapper.readValue(json, new TypeReference<ArrayList<Admin>>() {});
-//			
-//			users.clear();
-//			for(Admin admin : admins) {
-//				users.put(admin.getUsername(), admin);
-//				System.out.println(admin.getUsername() + " is loaded");
-//			}
-//		}
-//		
-//		json = "";
-//		if(hostsFile.exists()) {
-//			try(BufferedReader br = new BufferedReader(new FileReader(hostsFile))) { 
-//				while ((temp = br.readLine()) != null) {
-//					json += temp;
-//				}
-//			}
-//			
-//			ArrayList<Host> hosts = mapper.readValue(json, new TypeReference<ArrayList<Host>>() {});
-//			
-//			for(Host host : hosts) {
-//				users.put(host.getUsername(), host);
-//				System.out.println(host.getUsername() + " is loaded");
-//			}
-//				
-//		}
-//		
-//		json = "";		
-//		if(guestsFile.exists()) {
-//			try(BufferedReader br = new BufferedReader(new FileReader(guestsFile))) { 
-//				while ((temp = br.readLine()) != null) {
-//					json += temp;
-//				}
-//			}
-//			
-//			ArrayList<Guest> guests = mapper.readValue(json, new TypeReference<ArrayList<Guest>>() {});
-//			
-//			for(Guest guest : guests) {
-//				users.put(guest.getUsername(), guest);
-//				System.out.println(guest.getUsername() + " is loaded");
-//			}
-//				
-//		}
-//	}
-	
 
-	public User save(String contextPath, User user) {
+	public User save(User user) {
 		String line = user.getUsername() + ";"
 				+ user.getPassword() + ";"
 				+ user.getFirstname() + ";"
@@ -156,8 +119,8 @@ public class UserDao {
 		System.out.println(line);
 		BufferedWriter writer = null;
 		try {
-			File file = new File(contextPath + "/users.txt");
-			System.out.println(file.getAbsolutePath());
+			File file = new File(path + "/web2020/WebContent/data/users.txt");
+			System.out.println("file path" + file.getAbsolutePath());
 			writer = new BufferedWriter(new FileWriter(file, true));
 			PrintWriter out = new PrintWriter(writer);
 			out.println(line);
@@ -174,74 +137,61 @@ public class UserDao {
 				}
 			}
 		}
-//		users.put(user.getUsername(), user);
+		users.put(user.getUsername(), user);
 		return user;
 	}
 	
-//	
-//	 public void save(User user) {
-//	    	
-//	    	String s = user.getFirstname() + "," +
-//	    			user.getLastname() + "," +
-//	    			user.getUsername() + "," +
-//	    			user.getPassword() + "," +
-//	    			user.getRole() + "," +
-//	    			user.getGender();
-//	    	
-//			BufferedWriter writer = null;
-//			try {
-//				File file = new File(this.contextPath + "data" + java.io.File.separator + "users.txt");
-//				System.out.println("put:"+file.getAbsolutePath());
-//				writer = new BufferedWriter(new FileWriter(file, true));
-//				PrintWriter out = new PrintWriter(writer);
-//				System.out.println("upisuje: " + s);
-//				out.close();
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//			} finally {
-//				if (writer != null) {
-//					try {
-//						writer.close();
-//					} catch (Exception e) {
-//					}
-//				}
-//			}
-//	    	
-//	    }
-	 
-	public void saveUsers() {
-		ObjectMapper mapper = new ObjectMapper();
-		File hostsFile = new File(this.contextPath + "data" + java.io.File.separator + "hosts.json");
-		File guestsFile = new File(this.contextPath + "data" + java.io.File.separator + "guests.json");
-		
-		ArrayList<Guest> guests = new ArrayList<Guest>();
-		for (User user: users.values()) {
-			if (user.getRole().equals(Role.GUEST)) {
-				guests.add((Guest) user );
+    public User update(User user) {
+		boolean match=false;
+    	try {
+		    File file = new File(path + "/web2020/WebContent/data/users.txt");
+		    File tempFile = new File(path + "/web2020/WebContent/data/usersTemp.txt");
+			BufferedReader in = new BufferedReader(new FileReader(file));
+			BufferedWriter writer =null;
+			writer = new BufferedWriter(new FileWriter(tempFile, true));
+			
+			String s = "", newS = "";
+			StringTokenizer st;
+			while ((s = in.readLine()) != null) {
+				if (s.equals(""))
+					continue;
+				String[] tokens = s.split(";");
+				String username= tokens[0];
+				if (user.getUsername().equals(username)) {
+					newS += user.getUsername() + ";" +
+			    			user.getPassword() + ";" +
+			    			user.getFirstname() + ";" +
+			    			user.getLastname() + ";" +
+			    			user.getGender() + ";" +
+			    			user.getRole() + "\r\n";
+					match=true;
+				} else {
+					newS += s + "\r\n";
+				}
 			}
-		}
-		try {
-			System.out.println("Writing users to guest file");
-			for (Guest guest : guests) {
-				mapper.writeValue(guestsFile, guest);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		ArrayList<Host> hosts = new ArrayList<Host>();		
-		for (User user: users.values()) {
-			if (user.getRole().equals(Role.HOST)) {
-				hosts.add((Host) user);
-			}
-		}
-		try {
-			System.out.println("Writing users to host file");
-			for (Host host : hosts) {
-				mapper.writerWithDefaultPrettyPrinter().writeValue(hostsFile, host);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
+		in.close();
+		PrintWriter out = new PrintWriter(writer);
+		out.println(newS);
+		System.out.println("novi string:" + newS);
+		out.close();
+		Files.copy(tempFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        tempFile.delete();
+        
+	} catch (Exception ex) {
+		ex.printStackTrace();
 	}
+    	if (match==true) {
+	    	User userToRemove = null;
+	    	for (User u : users.values()) {
+	    	    if (user.getUsername().equals(u.getUsername())) {
+	    	    	userToRemove = u;
+	    	    }
+	    	}
+    	    users.remove(userToRemove);
+	    	users.put(user.getUsername(), user);
+	    	return user;
+    	}
+    	else
+    		return null;
+    }
 }

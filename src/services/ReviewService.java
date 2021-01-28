@@ -69,14 +69,14 @@ public class ReviewService {
 		//add review to the apartment at host
 		String hostUsername = apartment.getHostUsername();
 		User user = userDao.getUserByUsername(hostUsername);
-		System.out.println("Username of apartment host where review belongs is: " + hostUsername);
 		
 		Host host = (Host) user;
 		(host.getApartmentById(apartmentId)).addReview(review);
 			
 		reviewDao.saveReviews();
-		apartmentDao.saveApartments();
-		userDao.saveUsers();
+		// TODO save review to txt file
+//		apartmentDao.saveApartments();
+//		userDao.saveUsers();
 		
 		System.out.println("Review created!");
 		return Response.ok().build();
@@ -195,7 +195,8 @@ public class ReviewService {
 		}
 		
 		reviewDao.saveReviews();
-		apartmentDao.saveApartments();
+		//TODO update review in apartment txt file
+//		apartmentDao.saveApartments();
 		
 		return Response.ok().build();
 	}

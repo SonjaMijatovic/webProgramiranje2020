@@ -44,16 +44,14 @@ public class UserService {
 	public Response register(User user, @Context HttpServletRequest req) {
 		UserDao dao = (UserDao) ctx.getAttribute("userDao");
 		if(dao == null)
-			return Response.status(500).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		
 		if (dao.doesUsernameAlreadyExists(user.getUsername())) {
-			return Response.status(500).entity("Username already exists").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("Username already exists").build();
 		}
 		
 		Guest newGuest = new Guest(user);
-		
-		dao.addUser(newGuest);
-		dao.saveUsers();
+		dao.save(newGuest);
 		
 		req.getSession().setAttribute("user", newGuest);
 		System.out.println("Logged in user: " + newGuest.getUsername());
@@ -102,7 +100,7 @@ public class UserService {
 	public User getCurrentUser(@Context HttpServletRequest req) {
 
 		if(req.getSession(false) == null) {
-			System.out.println("session false");
+			System.out.println("get current user is not possible at the moment");
 			return null;
 		}
 		
@@ -188,11 +186,25 @@ public class UserService {
 		}
 	}
 	
+	
+//	@PUT
+//	@Path("edit/{username}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response editProfile(@Context HttpServletRequest request, @PathParam("username") String username, User user) {
+//			UserDao userDao = (UserDao) ctx.getAttribute("userDao");
+//			User updatedUser = userDao.update(user, ctx.getRealPath(""));
+//			if (updatedUser != null) {
+//				return Response.status(Response.Status.OK).entity(updatedUser).build();
+//			}
+//			return Response.status(Response.Status.FORBIDDEN).build();
+//	}
+	
 	@PUT
 	@Path("/edit/{username}/{password}/{name}/{lastname}/{gender}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public User updateUser(@PathParam("username") String username, @PathParam("password") String password,
+	public Response updateUser(@PathParam("username") String username, @PathParam("password") String password,
 								@PathParam("name") String name, @PathParam("lastname") String lastname, 
 								@PathParam("gender") String gender) {
 		
@@ -207,10 +219,12 @@ public class UserService {
 		user.setLastname(lastname);
 		user.setGender(gender);
 		
-		dao.saveUsers();
-	
-		System.out.println("User is successfully updated");
-		return user;
+		User updatedUser = dao.update(user);
+
+		if (updatedUser != null) {
+			return Response.status(Response.Status.OK).entity(updatedUser).build();
+		}
+		return Response.status(Response.Status.FORBIDDEN).build();
 	}
 	
 	@PUT
@@ -225,10 +239,10 @@ public class UserService {
 			return Response.status(500).build();
 		
 		Host host = Host.Parse(dao.getUserByUsername(username));
-		dao.updateUser(host);
-		
-		dao.saveUsers();
-		
-		return Response.ok().build();
+		User updatedUser = dao.update(host);
+		if (updatedUser != null) {
+			return Response.status(Response.Status.OK).entity(updatedUser).build();
+		}
+		return Response.status(Response.Status.FORBIDDEN).build();
 	}
 }

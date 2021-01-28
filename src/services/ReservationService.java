@@ -95,8 +95,8 @@ public class ReservationService {
 			}
 		}
 
-		userDao.saveUsers();
-		apartmentDao.saveApartments();
+//		userDao.save(host);
+//		apartmentDao.saveApartments();
 		reservationDao.saveReservations();
 
 		System.out.println("Reservation created!");
@@ -197,7 +197,7 @@ public class ReservationService {
 			}
 		}
 		reservationDao.saveReservations();
-		userDao.saveUsers();
+//		userDao.saveUsers();
 
 		return Response.ok().build();
 	}

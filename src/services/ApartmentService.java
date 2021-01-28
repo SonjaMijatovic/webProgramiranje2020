@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -19,7 +20,9 @@ import javax.ws.rs.core.Response;
 import beans.Apartment;
 import beans.Host;
 import beans.User;
+import dao.AmenityDao;
 import dao.ApartmentDao;
+import dao.LocationDao;
 import dao.UserDao;
 
 @Path("apartment")
@@ -34,8 +37,15 @@ public class ApartmentService {
 	
 	@PostConstruct
 	public void init() {
+		if(ctx.getAttribute("locationDao") == null)
+			ctx.setAttribute("locationDao", new LocationDao(ctx.getRealPath("")));
+		
+		if(ctx.getAttribute("amenityDao") == null)
+			ctx.setAttribute("amenityDao", new AmenityDao(ctx.getRealPath("")));
+		
 		if(ctx.getAttribute("apartmentDao") == null)
-			ctx.setAttribute("apartmentDao", new ApartmentDao(ctx.getRealPath("/")));
+			ctx.setAttribute("apartmentDao", new ApartmentDao(ctx.getRealPath(""), (LocationDao) ctx.getAttribute("locationDao"), (AmenityDao) ctx.getAttribute("amenityDao")));
+		
 	}
 	
 	@GET
@@ -89,13 +99,15 @@ public class ApartmentService {
 		
 		ApartmentDao dao = (ApartmentDao) ctx.getAttribute("apartmentDao");			
 		
-		Host host = (Host) rq.getSession().getAttribute("user");
+//		Host host = (Host) rq.getSession().getAttribute("user");
+		
+		User user = (User) rq.getSession().getAttribute("user");
 				
 		ArrayList<Apartment> allApartmants = dao.getAllApartments();
 		ArrayList<Apartment> list = new ArrayList<Apartment>();
 		
 		for(Apartment apartment : allApartmants) {
-			if(apartment.getHostUsername().equals(host.getUsername())) {
+			if(apartment.getHostUsername().equals(user.getUsername())) {
 				list.add(apartment);
 			}
 		}
@@ -191,18 +203,22 @@ public class ApartmentService {
 	public Response addApartment(Apartment apartment, @Context HttpServletRequest rq) {
 		
 		System.out.println("Apartment to add: " + apartment);
-		ApartmentDao apartmentDao = (ApartmentDao) ctx.getAttribute("apartmentDao");							
+		ApartmentDao apartmentDao = (ApartmentDao) ctx.getAttribute("apartmentDao");	
+		LocationDao locationDao = (LocationDao) ctx.getAttribute("locationDao");							
+
 		UserDao userDao = (UserDao) ctx.getAttribute("userDao");							
 		
-		Host host = (Host) rq.getSession().getAttribute("user");
-		apartment.setHostUsername(host.getUsername());
+		User user = (User) rq.getSession().getAttribute("user");
+		System.out.println("current user on session " + user.getUsername());
+		apartment.setHostUsername(user.getUsername());
 		
-		host.addApartment(apartment);
-	
-		apartmentDao.addApartment(apartment);
+//		user.addApartment(apartment);
 		
-		apartmentDao.saveApartments();
-		userDao.saveUsers();
+		apartment.getLocation().setId(UUID.randomUUID().toString());
+
+		locationDao.save(apartment.getLocation());
+		apartmentDao.save(apartment);
+//		userDao.save(user);
 		
 		return Response.ok().build();	
 	}
@@ -221,7 +237,8 @@ public class ApartmentService {
 		dao.removeApartmentById(id);
 		System.out.println("Apartment is successfully removed.");
 	
-		dao.saveApartments();
+		// TODO update apartment with deleted param true
+//		dao.saveApartments();
 		return Response.ok().build();
 	}
 	
@@ -252,7 +269,6 @@ public class ApartmentService {
 			}
 		}
 		
-		
 		String apartmentHost = apartment.getHostUsername();
 		Host host = null;
 		for(User user : userDao.getAllUsers()) {
@@ -260,10 +276,9 @@ public class ApartmentService {
 				host = (Host) user;
 			}
 		}		
-		
 		host.updateApartment(apartment, id);
-		userDao.saveUsers();
-		apartmentDao.saveApartments();
+		userDao.update(host);
+		apartmentDao.update(apartment);
 		return Response.ok().build();
 	}
 	

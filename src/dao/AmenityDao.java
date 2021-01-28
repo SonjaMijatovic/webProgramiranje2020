@@ -47,6 +47,7 @@ public class AmenityDao {
 		}
 	}
 	
+	// TODO treba da radi sa ID-jem aprtmana, izmeni u apartmentDao kad je ovde reseno
 	public Amenity getApartmentAmenityById(int id) {
 		for(Amenity amenity : amenities) {
 			if(amenity.getId() == id) {

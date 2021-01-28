@@ -4,18 +4,13 @@ body{
 	background-image: url("index.jpg");
 	background-size: cover;
 	background-color: rgb(4, 0, 255);
-	background-attachment: fixed;	
+	background-attachment: fixed;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 h2{
 	color: #FFFF;
-	font-family: Arial, Helvetica, sans-serif;
 	text-shadow: 2px 1px #0000FF;
-}
-
-.register{
-	text-align: center;
-	margin-top: 20px;
 }
 
 button{
@@ -23,7 +18,6 @@ button{
 	background: white;
 	padding: 5px 5px;
 	font-size: 15px;
-	font-family: Arial, Helvetica, sans-serif;
 	margin: 5px;
 	cursor: pointer;
 	transition: 0.8s;
@@ -37,9 +31,9 @@ button{
 
 .btn2 {
 	color: #1E90FF;
-	position: absolute;
-	  left: 85px;
-	  top: 253px;
+	position: relative;
+	left: 85px;
+	top: 253px;
 }
 
 .btn1:hover, .btn2:hover{
@@ -50,7 +44,6 @@ button{
 
 .labele {
 	font-size: 20px;
-	font-family: Arial, Helvetica, sans-serif;
 	color: #FFFF;
 }
 
@@ -66,12 +59,10 @@ button{
 	margin-left: 15px;
 	position: relative;
 	height: 25px;
-	font-family: Arial, Helvetica, sans-serif;
 	color: #1E90FF;
 }
 
 .error {
 	font-size: 15px;
-	font-family: Arial, Helvetica, sans-serif;
 	color: #FF4500;
 }
