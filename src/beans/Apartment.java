@@ -1,9 +1,12 @@
 package beans;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
+
+import beans.Apartment.ActiveStatus;
+import beans.Apartment.Type;
 
 public class Apartment {
 	
@@ -31,8 +34,8 @@ public class Apartment {
 	private int numberOfRooms;
 	private int numberOfGuests;
 	private Location location;
-	private long to;
-	private long from;
+	private ArrayList<Date> datesForRenting;
+	private ArrayList<Date> availabilityPerDates;
 	private String hostUsername;
 	private String checkinTime;
 	private String checkoutTime;
@@ -49,9 +52,9 @@ public class Apartment {
 	public Apartment() {
 		super();
 	}
-	
+
 	// TODO remove this constructor when amenities reading words
-	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, long to, long from,
+	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, ArrayList<Date> datesForRenting, ArrayList<Date> availabilityPerDates,
 			String hostUsername, String checkinTime, String checkoutTime, int price, ActiveStatus status, String image) {
 		super();
 		this.id = id;
@@ -59,8 +62,8 @@ public class Apartment {
 		this.numberOfRooms = numberOfRooms;
 		this.numberOfGuests = numberOfGuests;
 		this.location = location;
-		this.to = to;
-		this.from = from;
+		this.datesForRenting = datesForRenting;
+		this.availabilityPerDates = availabilityPerDates;
 		this.hostUsername = hostUsername;
 		this.checkinTime = checkinTime;
 		this.checkoutTime = checkoutTime;
@@ -69,27 +72,25 @@ public class Apartment {
 		this.image = image;
 		this.reservations = new ArrayList<Reservation>();
 	}
-
-	public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, long to, long from,
-			String hostUsername, String checkinTime, String checkoutTime, int price, ActiveStatus status, String image,
-			ArrayList<Amenity> amenities) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.numberOfRooms = numberOfRooms;
-		this.numberOfGuests = numberOfGuests;
-		this.location = location;
-		this.to = to;
-		this.from = from;
-		this.hostUsername = hostUsername;
-		this.checkinTime = checkinTime;
-		this.checkoutTime = checkoutTime;
-		this.price = price;
-		this.status = status;
-		this.image = image;
-		this.amenities = amenities;
-		this.reservations = new ArrayList<Reservation>();
-	}
+	
+	// TODO remove this constructor when amenities reading words
+		public Apartment(String id, Type type, int numberOfRooms, int numberOfGuests, Location location, ArrayList<Date> datesForRenting, ArrayList<Date> availabilityPerDates,
+				String hostUsername, int price, ActiveStatus status, String image, ArrayList<Amenity> amenities) {
+			super();
+			this.id = id;
+			this.type = type;
+			this.numberOfRooms = numberOfRooms;
+			this.numberOfGuests = numberOfGuests;
+			this.location = location;
+			this.datesForRenting = datesForRenting;
+			this.availabilityPerDates = availabilityPerDates;
+			this.hostUsername = hostUsername;
+			this.price = price;
+			this.status = status;
+			this.image = image;
+			this.amenities = amenities;
+			this.reservations = new ArrayList<Reservation>();
+		}
 
 	public Apartment(Type type, int numberOfRooms, int numberOfGuests, Location location,
 			String hostUsername, String checkinTime, String checkoutTime, int price, ActiveStatus status, String image,
@@ -150,20 +151,20 @@ public class Apartment {
 		this.location = location;
 	}
 
-	public long getTo() {
-		return to;
+	public ArrayList<Date> getDatesForRenting() {
+		return datesForRenting;
 	}
 
-	public void setTo(long to) {
-		this.to = to;
+	public void setDatesForRenting(ArrayList<Date> datesForRenting) {
+		this.datesForRenting = datesForRenting;
 	}
 
-	public long getFrom() {
-		return from;
+	public ArrayList<Date> getAvailabilityPerDates() {
+		return availabilityPerDates;
 	}
 
-	public void setFrom(long from) {
-		this.from = from;
+	public void setAvailabilityPerDates(ArrayList<Date> availabilityPerDates) {
+		this.availabilityPerDates = availabilityPerDates;
 	}
 
 	public String getHostUsername() {
@@ -281,10 +282,11 @@ public class Apartment {
 	@Override
 	public String toString() {
 		return "Apartment [id=" + id + ", type=" + type + ", numberOfRooms=" + numberOfRooms + ", numberOfGuests="
-				+ numberOfGuests + ", location=" + location + ", to=" + to + ", from=" + from + ", hostUsername="
-				+ hostUsername + ", checkinTime=" + checkinTime + ", checkoutTime=" + checkoutTime + ", price=" + price
-				+ ", status=" + status + ", image=" + image + ", amenities=" + amenities + ", reviews=" + reviews
-				+ ", reservations=" + reservations + ", deleted=" + deleted + "]";
+				+ numberOfGuests + ", location=" + location + ", datesForRenting=" + datesForRenting
+				+ ", availabilityPerDates=" + availabilityPerDates + ", hostUsername=" + hostUsername + ", checkinTime="
+				+ checkinTime + ", checkoutTime=" + checkoutTime + ", price=" + price + ", status=" + status
+				+ ", image=" + image + ", amenities=" + amenities + ", reviews=" + reviews + ", reservations="
+				+ reservations + ", deleted=" + deleted + "]";
 	}
 
 }

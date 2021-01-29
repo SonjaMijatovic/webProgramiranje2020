@@ -5,18 +5,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import beans.Address;
 import beans.Amenity;
+import beans.Location;
 
 public class AmenityDao {
 
 	private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
 	private String ctxPath;
+	Path currentDir = Paths.get(".");
+	String path = currentDir.toAbsolutePath().toString();
 	
 	public AmenityDao(String ctx) {
 		super();
@@ -39,9 +46,7 @@ public class AmenityDao {
 	public void removeAmenityFromApartment(int id) {
 		for(Amenity amenity : amenities) {
 			if(amenity.getId() == id) {
-//				amenity.setUklonjen(true);
-//				amenities.remove(amenity);
-//				TODO which approach
+				amenity.setDeleted(true);
 				break;
 			}
 		}
@@ -87,4 +92,40 @@ public class AmenityDao {
 			e.printStackTrace();
 		}
 	}
+	
+	 public ArrayList<Amenity> getAmenitiesByApartmentId(String wantedApartmentId) {
+		 	ArrayList<Amenity> apartmentAmenities = new ArrayList<>();
+			BufferedReader in = null;
+			try {
+				File file = new File(path + "/web2020/WebContent/data/apartment-amenities.txt");
+				in = new BufferedReader(new FileReader(file));
+				String s;
+				StringTokenizer st;
+				while ((s = in.readLine()) != null) {
+					s = s.trim();
+					if (s.equals(""))
+						continue;
+					st = new StringTokenizer(s, ";");
+					while (st.hasMoreTokens()) {
+						String apartmentId = st.nextToken().trim();
+						int amenityId = Integer.parseInt(st.nextToken());
+						String amenityName = st.nextToken().trim();
+						String amenityType = st.nextToken().trim();
+						
+						if (wantedApartmentId.equals(apartmentId)) {
+							apartmentAmenities.add(new Amenity(amenityId, amenityName, Amenity.Type.valueOf(amenityType)));
+						}
+					}
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (Exception e) { }
+				}
+			}
+			return apartmentAmenities;
+		}
 }

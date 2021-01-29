@@ -8,3 +8,4 @@ user1;lozinka;user1first;lastuser1;Female;HOST
 user7;lozinka;Sonjaaa;Mijatovic;Female;GUEST
 user8;lozinka;Milicaaaa;Milic;Female;GUEST
 
+user10;lozinka;Miroslav;Petrovic;Male;HOST

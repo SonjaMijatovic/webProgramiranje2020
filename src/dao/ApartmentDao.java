@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.UUID;
 import java.nio.file.Files;
@@ -17,7 +18,9 @@ import java.nio.file.StandardCopyOption;
 import beans.Amenity;
 import beans.Apartment;
 import beans.Apartment.ActiveStatus;
+import beans.Apartment.Type;
 import beans.Location;
+import beans.Reservation;
 
 public class ApartmentDao {
 
@@ -208,18 +211,22 @@ public class ApartmentDao {
 						int numberOfRooms = Integer.parseInt(st.nextToken());
 						int numberOfGuests = Integer.parseInt(st.nextToken());
 						Location location = locationDao.getById(st.nextToken());
-						long to = Long.parseLong(st.nextToken());
-						long from = Long.parseLong(st.nextToken());
+//						long to = Long.parseLong(st.nextToken());
+//						long from = Long.parseLong(st.nextToken());
+						ArrayList<Date> datesForRenting = new ArrayList<>();
+						ArrayList<Date> availabilityPerDates = new ArrayList<>();
 						String hostUsername = st.nextToken();
-						String checkinTime = st.nextToken();
-						String checkoutTime = st.nextToken();
+//						String checkinTime = st.nextToken();
+//						String checkoutTime = st.nextToken();
 						int price = Integer.parseInt( st.nextToken());
 						Apartment.ActiveStatus status = Apartment.ActiveStatus.valueOf(st.nextToken());
 //						String image = st.nextToken();
-//						ArrayList<Amenity> amenities = amenityDao.findAllByApartmentId(contextPath, id);
-						
-						this.apartments.add(new Apartment(id, type, numberOfRooms, numberOfGuests, location,
-								to, from, hostUsername, checkinTime, checkoutTime, price, status, null));
+						ArrayList<Amenity> amenities = amenityDao.getAmenitiesByApartmentId(id);
+//						
+						Apartment newApartment = new Apartment(id, type, numberOfRooms, numberOfGuests, location,
+								datesForRenting, availabilityPerDates, hostUsername, price, status, "", amenities);
+						System.out.println(newApartment);
+						this.apartments.add(newApartment);
 						
 						System.out.println(id);
 					}
@@ -244,14 +251,14 @@ public class ApartmentDao {
 	    			apartment.getNumberOfRooms()+ ";" +
 	    			apartment.getNumberOfGuests()+ ";" +
 	    			apartment.getLocation().getId().toString()+ ";" +
-	    			apartment.getTo()+ ";" +
-	    			apartment.getFrom()+ ";" +
 	    			apartment.getHostUsername()+ ";" +
-	    			apartment.getCheckinTime()+ ";" +
-	    			apartment.getCheckoutTime()+ ";" +
+//	    			apartment.getCheckinTime()+ ";" +
+//	    			apartment.getCheckoutTime()+ ";" +
 	    			apartment.getPrice()+ ";" +
 	    			apartment.getStatus()+ ";" +
-	    			apartment.getImage();   			
+	    			apartment.getImage();
+	    	
+	    	System.out.println(s);
 	    	
 			BufferedWriter writer = null;
 			try {
@@ -262,16 +269,16 @@ public class ApartmentDao {
 				PrintWriter out = new PrintWriter(writer);
 				out.println(s);
 				out.close();
-//				for (Amenity amenity : apartment.getAmenities()) {
-//					String line2 = apartment.getId() + "," + amenity.getId();
-//					System.out.println(line2);
-//
-//					File file2 = new File(path + "/web-2020/WebRest/apartment-amenities.txt");
-//					BufferedWriter writer2 = new BufferedWriter(new FileWriter(file2, true));
-//					PrintWriter out2 = new PrintWriter(writer2);
-//					out2.println(line2);
-//					out2.close();
-//				}
+				for (Amenity amenity : apartment.getAmenities()) {
+					String line2 = apartment.getId() + ";" + amenity.getId() + ";" + amenity.getName() + ";" + amenity.getType();
+					System.out.println("amenities for apartment to add" + line2);
+
+					File file2 = new File(path + "/web2020/WebContent/data/apartment-amenities.txt");
+					BufferedWriter writer2 = new BufferedWriter(new FileWriter(file2, true));
+					PrintWriter out2 = new PrintWriter(writer2);
+					out2.println(line2);
+					out2.close();
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
@@ -308,8 +315,8 @@ public class ApartmentDao {
 				    			apartment.getNumberOfRooms()+ ";" +
 				    			apartment.getNumberOfGuests()+ ";" +
 				    			apartment.getLocation().getId().toString()+ ";" +
-				    			apartment.getTo()+ ";" +
-				    			apartment.getFrom()+ ";" +
+//				    			apartment.getTo()+ ";" +
+//				    			apartment.getFrom()+ ";" +
 				    			apartment.getHostUsername()+ ";" +
 				    			apartment.getCheckinTime()+ ";" +
 				    			apartment.getCheckoutTime()+ ";" +

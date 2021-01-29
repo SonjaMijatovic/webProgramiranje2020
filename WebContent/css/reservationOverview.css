@@ -1,64 +1,74 @@
+:root {
+    --text:#433E49;
+    --text-secondary:#928490;
+    --background:#DBC1AD;
+    --background2:#dbd8ad;
+    --hover:#F3E8EB;
+    --accent:#ED7458
+}
+
 body{
 	margin: 5;
 	padding: 0;
 	background-image: url("index.jpg");
 	background-size: cover;
+    background-color: var(--background);
 	background-attachment: fixed;	
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-h2{
-    color: #FFFF;
-	text-shadow: 2px 1px #0000FF;
+h2, h3{
+	color: var(--text);
+	text-shadow: 1px 1px var(--text-secondary);
 }
 
-h3{
-    color: #FFFF;
-	text-shadow: 2px 1px #0000FF;
-}
-
-button{
-	border: 2px solid #FFFF;
-	background: white;
-	padding: 5px 5px;
-	font-size: 13px;
-	margin: 5px;
-	cursor: pointer;
-	transition: 0.8s;
-	position: hidden;
-	color: #1E90FF;
-	font-weight: bold;
+label{
+    font-size: 17px;
+	color: white;
 }
 
 button:hover {
-	border: 1px solid #fff;
-	background: #1E90FF;
-	color: #fff;
+	background: var(--background);
 }
 
-td{
-    background: none;
-	padding: 5px 5px;
-	font-size: 13px;
-    color: #FFFF;
+button{
+	background: var(--hover);
+	padding: 3px 3px;
+	font-size: 15px;
+	margin: 5px;
+	cursor: pointer;
+	transition: 0.8s;
+    position: hidden;
+    height: 30px;
+	color: var(--text);
+}
+
+.btn2{
+	position: relative;
 }
 
 .tabela1{
-    border: 1px solid #3498db;
 	border-collapse: collapse;
 	text-align: center;
 }
 
 thead{
-	background-color: #3498db;
+	background-color: var(--accent);
 	opacity: 0.9;
 	border-top: none;
 }
 
 .tabela1>tbody>tr:nth-child(even){
-	background-color: skyblue;
+	background-color: var(--background2);
 }
 
-.tabela1>tbody>tr:nth-child(odd){
-	background-color: #56cfcf;
+.tabela1>tbody>tr{
+	background-color: var(--background);
+}
+
+td{
+    background: none;
+	padding: 5px 5px;
+	font-size: 15px;
+    color: #FFFF;
 }

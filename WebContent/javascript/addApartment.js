@@ -1,3 +1,4 @@
+var savSadrzajApartmana = new Array();
 var cekiraniSadrzaj = new Array();
 var podaciSadrzaj = [];
 
@@ -48,7 +49,7 @@ function pozdravPorukaApp(korisnik) {
 	if (korisnik == undefined) {
 		$('#pozPorApp').hide();
 	} else {
-		$('#pozPorApp').text("Hello " + korisnik.username + " " + korisnik.role);
+		$('#pozPorApp').text("Hello " + korisnik.role.toLowerCase() + " " + korisnik.username);
 		$('#pozPorApp').show();
 	}
 }
@@ -69,7 +70,7 @@ function dodajApartman(korisnik) {
             "longitude" : geoDuzina,
             "address" : podaciAdresa
         }
-
+    
     postavljanjeSadrzaja();
     
     var datumiZaIzdavanjeList = getDates(datumOD, datumDO);
@@ -79,8 +80,9 @@ function dodajApartman(korisnik) {
         "type": $('#tip option:selected').text(),
         "price": $('#cena').val(),
         "image": $('#blah').val(),
-        "from": 1657893,
-        "to": 1657942,
+        "hostUsername": korisnik.username,
+        "datesForRenting": datumiZaIzdavanjeList,
+        "availabilityPerDates": datumiZaIzdavanjeList,
         "location": podaciLokacija,
         "amenities": podaciSadrzaj
     }
@@ -108,53 +110,44 @@ function dodajApartman(korisnik) {
 
 //iskorisceno u metodi ispod(ucitajSadrzajApartmana())
 function ucitajCekiranSadrzaj(id){
-
-    if(document.getElementById(id).checked){
+    if (document.getElementById(id).checked) {
         cekiraniSadrzaj.push(id);
-    }if(!document.getElementById(id).checked){
+    } 
+    if(!document.getElementById(id).checked) {
         var index = $.inArray(id,cekiraniSadrzaj);
         if(index != -1){
             cekiraniSadrzaj.splice(index, 1);
-          //  alert(cekiraniSadrzaj);
+            alert("cekiraniSadrzaj " + cekiraniSadrzaj);
         }
     }
 }
 
 //prilikom klika dodavanja
 function postavljanjeSadrzaja(){
-
-    $.ajax({
-        type: 'GET',
-        url: 'rest/amenities/all',
-        complete: function(data){
-
-            let savSadrzaj = data.responseJSON;
-
-            for(var i = 0; i < savSadrzaj.length; i++){
-                for(var j = 0; j < cekiraniSadrzaj.length; j++){
-                    if(cekiraniSadrzaj[j] == savSadrzaj[i].id){
-                        jednaStavka  = { 
-                                        "id": savSadrzaj[i].id,
-                                        "name": savSadrzaj[i].name,
-                                        "type": savSadrzaj[i].type,
-                                        "deleted": false
-                                        }
-                        podaciSadrzaj.push(jednaStavka);
-                    }
-                }
+	var savSadrzaj = savSadrzajApartmana;
+	for(var i = 0; i < savSadrzaj.length; i++){
+        for(var j = 0; j < cekiraniSadrzaj.length; j++){
+            if(cekiraniSadrzaj[j] == savSadrzaj[i].id){
+                jednaStavka  = { 
+                                "id": savSadrzaj[i].id,
+                                "name": savSadrzaj[i].name,
+                                "type": savSadrzaj[i].type,
+                                "deleted": false
+                                }
+                podaciSadrzaj.push(jednaStavka);
             }
         }
-    })
+    }
 }
 
 function ucitajSadrzajApartmana(){
-
     $.ajax({
         type: 'GET',
         url: 'rest/amenities/all',
         complete: function(data) {
 
             let savSadrzaj = data.responseJSON;
+            savSadrzajApartmana = savSadrzaj;
             let lista = $("#tabelaSadrzaj tbody");
             lista.empty();
 

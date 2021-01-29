@@ -1,3 +1,4 @@
+var postojeciSadrzaj = Array();
 var cekiraniSadrzaj = new Array();
 var podaciSadrzaj = [];
 
@@ -17,8 +18,6 @@ $(document).ready(function(){
 			checkRole(data.responseJSON);
 		}		
 	})
-
-    ucitajSadrzajApartmana();
 
     document.getElementById("greskaBrSobaPor").hidden = true;
     document.getElementById("greskaBrGostijuPor").hidden = true;
@@ -42,6 +41,7 @@ $(document).ready(function(){
 			
             let apartman = data.responseJSON;
             var domacinApp = apartman.hostUsername;
+            postojeciSadrzaj = apartman.amenities;
             
             let tip = "<td> <b> <i>" + apartman.type + "</i></b></td>";
             $("#k").append(tip);
@@ -76,6 +76,8 @@ $(document).ready(function(){
             });
         }
     });
+	
+    ucitajSadrzajApartmana();
 
     $("#odustani").click(function(event){
         event.preventDefault();
@@ -164,9 +166,9 @@ function izmeniApartman(apartman, number) {
     podaciZaSlanje = { 
             "type": apartman.type,
 //            "to": apartman.datumiZaIzdavanje,
-            "to": 1657942,
+//            "to": 1657942,
 //            "from": apartman.dostupnostPoDatumima,
-            "from": 1657893,
+//            "from": 1657893,
             "reservations": apartman.reservations,
             "id": number,
             "hostUsername": apartman.hostUsername,
@@ -179,7 +181,6 @@ function izmeniApartman(apartman, number) {
         }
 
         var d = JSON.stringify(podaciZaSlanje);
-      //  alert(d);
 
         $.ajax({
             type: 'PUT',
@@ -188,7 +189,6 @@ function izmeniApartman(apartman, number) {
             contentType: 'application/json',
             dataType: 'json',
             complete: function(data){
-
                 if(data["status"] == 200){
                     window.location.href = "index.html";
                 }else {
@@ -235,16 +235,30 @@ function ucitajSadrzajApartmana(){
 
             let lista = $("#tabelaSadrzaj tbody");
             lista.empty();
-
-            for(var i = 0; i < savSadrzaj.length; i++){
-                if(savSadrzaj[i].deleted == false){
-                    lista.append("<tr><td><input type='checkbox' onclick=ucitajCekiranSadrzaj('"+ savSadrzaj[i].id + "') id='" + savSadrzaj[i].id +"'>" + 
-                                        "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].name + "</label></td></tr>");
-                    $("#tabelaSadrzaj").append(lista);
+            
+//            for(var i = 0; i < savSadrzaj.length; i++){
+//                if(savSadrzaj[i].uklonjen == false){
+//                    lista.append("<tr><td><input type='checkbox' onclick=ucitajCekiranSadrzaj('"+ savSadrzaj[i].id + "') id='" + savSadrzaj[i].id +"'>" + 
+//                                        "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].item + "</label></td></tr>");
+//                    $("#tabelaSadrzaj").append(lista);
+//                }
+//            }
+            
+            for (var i = 0; i < savSadrzaj.length; i++) {
+                if (savSadrzaj[i].deleted == false) {
+                	for (var j = 0; j < postojeciSadrzaj.length; j++) {
+                		if (postojeciSadrzaj[j].id == savSadrzaj[i].id) {
+                	       	lista.append("<tr><td><input type='checkbox' checked onclick=ucitajCekiranSadrzaj('"+ savSadrzaj[i].id + "') id='" + savSadrzaj[i].id +"'>" + 
+                                    "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].name + "</label></td></tr>");
+                		}
+                	}
+                	lista.append("<tr><td><input type='checkbox' onclick=ucitajCekiranSadrzaj('"+ savSadrzaj[i].id + "') id='" + savSadrzaj[i].id +"'>" + 
+                            "<label for='"+ savSadrzaj[i].id + "'>"+ savSadrzaj[i].name + "</label></td></tr>");
+                	$("#tabelaSadrzaj").append(lista);
                 }
             }
         }
-    })
+    });
 }
 
 
@@ -281,9 +295,8 @@ function postavljanjeSadrzaja(){
                                         "name": savSadrzaj[i].item,
                                          "deleted": false
                                         }
-                     //   alert("Trenutno postavljen sadrzaj u funkciji: " + podaciSadrzaj);
                         podaciSadrzaj.push(jednaStavka);
-                      //  alert("Trenutno postavljen sadrzaj u funkciji: " + podaciSadrzaj);
+                        alert("Trenutno postavljen sadrzaj u funkciji: " + podaciSadrzaj);
                     }
                 }
             }
@@ -296,7 +309,7 @@ function checkRole(korisnik){
         alert("No content!");
         window.location.href = "index.html";
 
-    }else if(korisnik.uloga == 'GUEST'){
+    }else if(korisnik.role == 'GUEST'){
         alert("No content!");
         window.location.href = "index.html";
     }

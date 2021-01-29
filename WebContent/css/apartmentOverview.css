@@ -16,9 +16,9 @@ body{
 	background-attachment: fixed;	
 	font-family: Arial, Helvetica, sans-serif;
 }
-h12{
+h1, h2{
 	color: var(--text);
-	text-shadow: 1px 1px var(--text-secondary);
+	text-shadow: 1px 1px var(--text);
 }
 button{
 	background: var(--hover);
@@ -37,7 +37,7 @@ button:hover {
 
 label{
 	font-size: 15px;
-	color: var(--text-secondary);
+	color: var(--text);
 }
 
 .tabelica{
@@ -78,7 +78,7 @@ label{
 
 .labela{
 	font-size: 15px;
-	color: var(--text-secondary);
+	color: var(--text);
     font-weight: bold;
 }
 

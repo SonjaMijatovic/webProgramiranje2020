@@ -127,7 +127,7 @@ function getAmenities(korisnik){
                         $("#sadrzajApartmana").append(lista);
                         
                     } else if(savSadrzaj[i].deleted == true) {
-                        lista.append("<tr style='background-color:red'><td>"+ savSadrzaj[i].id + "</td><td>"+ savSadrzaj[i].name + "</td>"+
+                        lista.append("<tr style='background-color:#ED7458'><td>"+ savSadrzaj[i].id + "</td><td>"+ savSadrzaj[i].name + "</td>"+
                         "<td>------</td><td> Removed </td></tr>");
                         $("#sadrzajApartmana").append(lista);
                     }

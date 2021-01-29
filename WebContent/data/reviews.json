@@ -1,25 +1,25 @@
 [
      {
       "id":"22222",
-      "guestId":"user5",
-      "apartmentId":"2",
+      "guestId":"user8",
+      "apartmentId":"08d8e01f-213b-415b-914f-9391b86d7310",
       "text":"Great room!",
       "rate":5,
       "visible":true
    },
    {
       "id":"22222",
-      "guestId":"user5",
-      "apartmentId":"2",
-      "text":"Great room!",
+      "guestId":"user8",
+      "apartmentId":"2f2f9ac0-b0fa-4dd1-9eb8-a2d0892a33b8",
+      "text":"Fantastic view from the apartment!",
       "rate":5,
       "visible":true
    },
    {
       "id":"22222",
-      "guestId":"user5",
-      "apartmentId":"2",
-      "text":"Great room!",
+      "guestId":"user7",
+      "apartmentId":"5e2055bf-cbbd-4955-a2b0-30537871648c",
+      "text":"Kitchen is very well equipped.",
       "rate":5,
       "visible":true
    }
